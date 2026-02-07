@@ -1,4 +1,4 @@
-package hw02_dynamic_programming_and_testing.run.core;
+package hw02_dynamic_programming_and_testing.app.core;
 
 public interface Task {
     String id();

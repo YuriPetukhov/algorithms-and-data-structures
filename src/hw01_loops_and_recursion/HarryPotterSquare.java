@@ -6,12 +6,12 @@ import hw01_loops_and_recursion.render.Renderer;
 public class HarryPotterSquare {
     public static void main(String[] args) {
 
-        System.out.println("=== Заклинание 01 ===");
+        System.out.println("\n=== Заклинание 01 ===");
         Renderer.print(
                 25,
                 new Pattern01('#', '.').build());
 
-        System.out.println("=== Заклинание 02 ===");
+        System.out.println("\n=== Заклинание 02 ===");
         Renderer.print(
                 25,
                 new Pattern02('#', '.').build());
@@ -130,5 +130,6 @@ public class HarryPotterSquare {
         Renderer.print(
                 25,
                 new Pattern25(5, '#', '.').build());
+
     }
 }

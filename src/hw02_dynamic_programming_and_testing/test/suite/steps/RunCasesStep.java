@@ -1,7 +1,9 @@
-package hw02_dynamic_programming_and_testing.test.strategy;
+package hw02_dynamic_programming_and_testing.test.suite.steps;
 
 import hw02_dynamic_programming_and_testing.test.model.TestResult;
-import hw02_dynamic_programming_and_testing.test.runner.CaseRunner;
+import hw02_dynamic_programming_and_testing.test.caseflow.CaseRunner;
+import hw02_dynamic_programming_and_testing.test.suite.TestContext;
+import hw02_dynamic_programming_and_testing.test.suite.TestStep;
 
 import java.util.List;
 

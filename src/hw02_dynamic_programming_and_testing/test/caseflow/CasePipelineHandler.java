@@ -1,4 +1,4 @@
-package hw02_dynamic_programming_and_testing.test.runner;
+package hw02_dynamic_programming_and_testing.test.caseflow;
 
 import hw02_dynamic_programming_and_testing.test.model.TestResult;
 

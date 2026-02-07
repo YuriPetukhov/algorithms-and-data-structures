@@ -1,19 +1,20 @@
-package hw02_dynamic_programming_and_testing.test.caseflow;
+package hw02_dynamic_programming_and_testing.test.caseflow.steps;
 
-import hw02_dynamic_programming_and_testing.test.compare.TextNormalizer;
+import hw02_dynamic_programming_and_testing.test.caseflow.CaseContext;
+import hw02_dynamic_programming_and_testing.test.caseflow.CaseStep;
+import hw02_dynamic_programming_and_testing.test.compare.TextNormalizationStrategy;
 
 public class NormalizeStep implements CaseStep {
 
-    private final TextNormalizer normalizer;
+    private final TextNormalizationStrategy normalization;
 
-    public NormalizeStep(TextNormalizer normalizer) {
-        this.normalizer = normalizer;
+    public NormalizeStep(TextNormalizationStrategy normalization) {
+        this.normalization = normalization;
     }
 
     @Override
     public void execute(CaseContext ctx) {
-        ctx.setInputNorm(normalizer.normalize(ctx.inputRaw()));
-        ctx.setExpectedNorm(normalizer.normalize(ctx.expectedRaw()));
-        ctx.setActualNorm(normalizer.normalize(ctx.actualRaw()));
+        ctx.setExpectedNorm(normalization.normalize(ctx.expectedRaw()));
+        ctx.setActualNorm(normalization.normalize(ctx.actualRaw()));
     }
 }

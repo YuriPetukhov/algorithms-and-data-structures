@@ -1,6 +1,8 @@
-package hw02_dynamic_programming_and_testing.test.strategy;
+package hw02_dynamic_programming_and_testing.test.suite.steps;
 
 import hw02_dynamic_programming_and_testing.test.report.ConsoleTestReporter;
+import hw02_dynamic_programming_and_testing.test.suite.TestContext;
+import hw02_dynamic_programming_and_testing.test.suite.TestStep;
 
 public class ReportStep implements TestStep {
 

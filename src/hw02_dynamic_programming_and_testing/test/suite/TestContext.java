@@ -1,4 +1,4 @@
-package hw02_dynamic_programming_and_testing.test.strategy;
+package hw02_dynamic_programming_and_testing.test.suite;
 
 import hw02_dynamic_programming_and_testing.app.core.Task;
 import hw02_dynamic_programming_and_testing.test.model.TestCase;

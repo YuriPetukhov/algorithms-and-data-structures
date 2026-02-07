@@ -1,4 +1,7 @@
-package hw02_dynamic_programming_and_testing.test.caseflow;
+package hw02_dynamic_programming_and_testing.test.caseflow.steps;
+
+import hw02_dynamic_programming_and_testing.test.caseflow.CaseContext;
+import hw02_dynamic_programming_and_testing.test.caseflow.CaseStep;
 
 import java.nio.charset.Charset;
 import java.nio.file.Files;

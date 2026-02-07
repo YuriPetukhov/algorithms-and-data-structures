@@ -1,8 +1,5 @@
-package hw02_dynamic_programming_and_testing.test.factory;
+package hw02_dynamic_programming_and_testing.test.compare;
 
-import hw02_dynamic_programming_and_testing.test.compare.NoNormalization;
-import hw02_dynamic_programming_and_testing.test.compare.TextNormalizationStrategy;
-import hw02_dynamic_programming_and_testing.test.compare.TrimNormalization;
 import hw02_dynamic_programming_and_testing.test.config.CompareMode;
 
 public class NormalizationStrategyFactory {
