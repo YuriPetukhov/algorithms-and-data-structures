@@ -10,6 +10,8 @@ public class TestContext {
 
     private final Task task;
 
+    private int benchmarkRuns = 1;
+
     private List<TestCase> cases;
     private List<TestResult> results;
 
@@ -18,6 +20,9 @@ public class TestContext {
     }
 
     public Task task() { return task; }
+
+    public int benchmarkRuns() { return benchmarkRuns; }
+    public void setBenchmarkRuns(int runs) { this.benchmarkRuns = Math.max(1, runs); }
 
     public List<TestCase> cases() { return cases; }
     public void setCases(List<TestCase> cases) { this.cases = cases; }

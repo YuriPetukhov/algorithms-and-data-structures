@@ -30,7 +30,8 @@ public class DefaultTestConfigProvider implements TestConfigProvider {
                 base.showFailed(),
                 base.showDiff(),
                 base.timeEnabled(),
-                base.timeUnit()
+                base.timeUnit(),
+                base.benchmarkRuns()
         );
     }
 }

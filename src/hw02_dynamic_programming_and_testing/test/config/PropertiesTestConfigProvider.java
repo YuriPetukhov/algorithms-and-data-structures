@@ -1,5 +1,9 @@
 package hw02_dynamic_programming_and_testing.test.config;
 
+import static hw02_dynamic_programming_and_testing.common.props.Props.*;
+import hw02_dynamic_programming_and_testing.common.props.PropertiesLoader;
+import hw02_dynamic_programming_and_testing.common.time.TimeUnitParser;
+
 import java.nio.file.Path;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
@@ -31,7 +35,12 @@ public class PropertiesTestConfigProvider implements TestConfigProvider {
         boolean showDiff = getBool(p, "test.show.diff", true);
 
         boolean timeEnabled = getBool(p, "test.time.enabled", true);
-        TimeUnit timeUnit = parseTimeUnit(get(p, "test.time.unit", "millis"));
+        String raw = p.getProperty("test.time.unit");
+
+        TimeUnit timeUnit = TimeUnitParser.tryParse(raw)
+                .orElse(TimeUnit.MILLISECONDS);
+        int runs = Integer.parseInt(p.getProperty("test.benchmark.runs", "1"));
+
 
         return new TestConfig(
                 taskId,
@@ -43,34 +52,8 @@ public class PropertiesTestConfigProvider implements TestConfigProvider {
                 showFailed,
                 showDiff,
                 timeEnabled,
-                timeUnit
+                timeUnit,
+                runs
         );
-    }
-
-    private static String get(Properties p, String key, String def) {
-        String v = p.getProperty(key);
-        if (v == null) return def;
-        v = v.trim();
-        return v.isEmpty() ? def : v;
-    }
-
-    private static boolean getBool(Properties p, String key, boolean def) {
-        String v = p.getProperty(key);
-        if (v == null) return def;
-        v = v.trim().toLowerCase();
-        if (v.isEmpty()) return def;
-        return v.equals("true") || v.equals("1") || v.equals("yes") || v.equals("y");
-    }
-
-    private static TimeUnit parseTimeUnit(String s) {
-        if (s == null) return TimeUnit.MILLISECONDS;
-        String v = s.trim().toLowerCase();
-        return switch (v) {
-            case "nanos", "nano", "ns" -> TimeUnit.NANOSECONDS;
-            case "micros", "micro", "us" -> TimeUnit.MICROSECONDS;
-            case "millis", "milli", "ms" -> TimeUnit.MILLISECONDS;
-            case "seconds", "second", "sec", "s" -> TimeUnit.SECONDS;
-            default -> TimeUnit.MILLISECONDS;
-        };
     }
 }

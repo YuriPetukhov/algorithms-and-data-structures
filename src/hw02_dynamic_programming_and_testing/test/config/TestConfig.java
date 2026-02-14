@@ -13,7 +13,8 @@ public record TestConfig(
         boolean showFailed,
         boolean showDiff,
         boolean timeEnabled,
-        TimeUnit timeUnit
+        TimeUnit timeUnit,
+        int benchmarkRuns
 ) {
     public Path inputsDir() {
         return testDir.resolve("inputs");

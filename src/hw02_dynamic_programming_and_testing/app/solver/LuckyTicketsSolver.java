@@ -1,12 +1,14 @@
 package hw02_dynamic_programming_and_testing.app.solver;
 
+import hw02_dynamic_programming_and_testing.app.core.Solver;
+
 import java.math.BigInteger;
 import java.util.Arrays;
 
-public class LuckyTicketsSolver {
+public class LuckyTicketsSolver implements Solver<Integer, BigInteger> {
 
-    public BigInteger solve(int n) {
-        if (n < 0) throw new IllegalArgumentException("n must be >= 0");
+    @Override
+    public BigInteger solve(Integer n) {
 
         BigInteger[] dp = new BigInteger[9 * n + 1];
         Arrays.fill(dp, BigInteger.ZERO);

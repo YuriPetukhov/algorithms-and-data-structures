@@ -1,13 +1,14 @@
 package hw02_dynamic_programming_and_testing.app.tasks;
 
-import hw02_dynamic_programming_and_testing.app.core.Task;
+import hw02_dynamic_programming_and_testing.app.core.MeasurableTask;
 import hw02_dynamic_programming_and_testing.app.solver.LuckyTicketsSolver;
+import hw02_dynamic_programming_and_testing.app.core.Solver;
 
 import java.math.BigInteger;
 
-public class LuckyTicketsTask implements Task {
+public class LuckyTicketsTask implements MeasurableTask<Integer, BigInteger> {
 
-    private final LuckyTicketsSolver solver = new LuckyTicketsSolver();
+    private final Solver<Integer, BigInteger> solver = new LuckyTicketsSolver();
 
     @Override
     public String id() {
@@ -20,7 +21,7 @@ public class LuckyTicketsTask implements Task {
     }
 
     @Override
-    public String run(String input) {
+    public Integer parse(String input) {
         if (input == null) throw new IllegalArgumentException("Input is null");
 
         String t = input.trim();
@@ -35,7 +36,21 @@ public class LuckyTicketsTask implements Task {
 
         if (n < 0) throw new IllegalArgumentException("n must be >= 0");
 
-        BigInteger result = solver.solve(n);
+        return n;
+    }
+
+    @Override
+    public BigInteger compute(Integer n) {
+        return solver.solve(n);
+    }
+
+    @Override
+    public String format(BigInteger result) {
         return result.toString();
+    }
+
+    @Override
+    public String run(String input) {
+        return format(compute(parse(input)));
     }
 }

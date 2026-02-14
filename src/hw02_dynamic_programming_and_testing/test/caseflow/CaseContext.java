@@ -21,6 +21,8 @@ public class CaseContext {
 
     private TestResult result;
 
+    private int benchmarkRuns = 1;
+
     public CaseContext(Task task, TestCase testCase) {
         this.task = task;
         this.testCase = testCase;
@@ -52,4 +54,9 @@ public class CaseContext {
 
     public TestResult result() { return result; }
     public void setResult(TestResult result) { this.result = result; }
+
+    public int benchmarkRuns() { return benchmarkRuns; }
+    public void setBenchmarkRuns(int benchmarkRuns) {
+        this.benchmarkRuns = Math.max(1, benchmarkRuns);
+    }
 }

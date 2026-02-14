@@ -41,7 +41,7 @@ public class ConsoleTestReporter {
                 results.size(), passed, failed, missing, error);
     }
 
-    public static void printFatal(Exception e) {
+    public void printFatal(Exception e) {
         System.err.println("Ошибка: " + e.getMessage());
     }
 

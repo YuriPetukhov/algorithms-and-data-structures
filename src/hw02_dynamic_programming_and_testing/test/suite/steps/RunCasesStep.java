@@ -17,7 +17,7 @@ public class RunCasesStep implements TestStep {
 
     @Override
     public void execute(TestContext ctx) {
-        List<TestResult> results = runner.runAll(ctx.task(), ctx.cases());
+        List<TestResult> results = runner.runAll(ctx);
         ctx.setResults(results);
     }
 }

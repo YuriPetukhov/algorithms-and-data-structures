@@ -1,11 +1,12 @@
-package hw02_dynamic_programming_and_testing.test.config;
+package hw02_dynamic_programming_and_testing.common.props;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
 public class PropertiesLoader {
 
-    public Properties loadFromClasspath(String resourceName) throws Exception {
+    public Properties loadFromClasspath(String resourceName) throws IOException {
         Properties p = new Properties();
 
         ClassLoader cl = Thread.currentThread().getContextClassLoader();
