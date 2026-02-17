@@ -44,7 +44,7 @@ public record ReportConfig(
             String rawTimeUnit = get(p, "report.time.unit", null);
 
             TimeUnit timeUnit = TimeUnitParser.tryParse(rawTimeUnit)
-                    .orElse(TimeUnit.MILLISECONDS);   // дефолт отчёта
+                    .orElse(TimeUnit.MILLISECONDS);
 
             List<String> tasks = Arrays.stream(tasksRaw.split(","))
                     .map(String::trim)

@@ -1,0 +1,11 @@
+package hw05_bitboards_and_chess_moves.report.queen;
+
+import hw05_bitboards_and_chess_moves.core.model.PieceType;
+import hw05_bitboards_and_chess_moves.report.PopcountProxyBitsTask;
+
+public final class QueenBitsKernighanProxyTask extends PopcountProxyBitsTask {
+    public QueenBitsKernighanProxyTask() {
+        super("queen_bits_kernighan", "Queen - BITS (kernighan)", PieceType.QUEEN, "kernighan");
+    }
+}
+
