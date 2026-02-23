@@ -18,7 +18,8 @@ public final class SortingController implements ProgramController<int[]> {
 
     private static final String SORTING_PREFIX_RU = "Сортировка:";
 
-    private final JTextField sizeField = new JTextField("20", 4);
+    private static final int MAX_VISUAL_SIZE = 30;
+    private final JSpinner sizeSpinner = new JSpinner(new SpinnerNumberModel(20, 0, MAX_VISUAL_SIZE, 1));
     private final JTextField minField  = new JTextField("0", 4);
     private final JTextField maxField  = new JTextField("99", 4);
     private final JTextField seedField = new JTextField("", 6);
@@ -42,7 +43,7 @@ public final class SortingController implements ProgramController<int[]> {
         this.algorithmComboBox = new JComboBox<>(sortingVariants.toArray(new SortingVariant[0]));
 
         rootPanel.add(new JLabel("Size:"));
-        rootPanel.add(sizeField);
+        rootPanel.add(sizeSpinner);
 
         rootPanel.add(new JLabel("Min:"));
         rootPanel.add(minField);
@@ -118,7 +119,7 @@ public final class SortingController implements ProgramController<int[]> {
 
     @Override
     public int[] buildInput() {
-        int size = Integer.parseInt(sizeField.getText().trim());
+        int size = (Integer) sizeSpinner.getValue();
         int minimumValue = Integer.parseInt(minField.getText().trim());
         int maximumValue = Integer.parseInt(maxField.getText().trim());
 
