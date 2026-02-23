@@ -11,6 +11,8 @@ public class TestContext {
     private final Task task;
 
     private int benchmarkRuns = 1;
+    private int timeoutLimit;
+    private boolean timeoutEnabled;
 
     private List<TestCase> cases;
     private List<TestResult> results;
@@ -29,4 +31,20 @@ public class TestContext {
 
     public List<TestResult> results() { return results; }
     public void setResults(List<TestResult> results) { this.results = results; }
+
+    public int getTimeoutLimit() {
+        return timeoutLimit;
+    }
+
+    public void setTimeoutLimit(int timeoutLimit) {
+        this.timeoutLimit = timeoutLimit;
+    }
+
+    public boolean isTimeoutEnabled() {
+        return timeoutEnabled;
+    }
+
+    public void setTimeoutEnabled(boolean timeoutEnabled) {
+        this.timeoutEnabled = timeoutEnabled;
+    }
 }

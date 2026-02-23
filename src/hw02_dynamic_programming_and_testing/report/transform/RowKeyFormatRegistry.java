@@ -1,8 +1,11 @@
 package hw02_dynamic_programming_and_testing.report.transform;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 public class RowKeyFormatRegistry {
 
-    private final java.util.Map<String, RowKeyFormat> map = new java.util.LinkedHashMap<>();
+    private final Map<String, RowKeyFormat> map = new LinkedHashMap<>();
 
     public RowKeyFormatRegistry() {
         java.util.ServiceLoader<RowKeyFormat> loader = java.util.ServiceLoader.load(RowKeyFormat.class);

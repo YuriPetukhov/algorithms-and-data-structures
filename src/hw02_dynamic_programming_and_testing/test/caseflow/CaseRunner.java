@@ -22,10 +22,14 @@ public class CaseRunner {
 
         Task task = testCtx.task();
         int runs = testCtx.benchmarkRuns();
+        int timeoutLimit = testCtx.getTimeoutLimit();
+        boolean timeoutEnabled = testCtx.isTimeoutEnabled();
 
         for (TestCase tc : testCtx.cases()) {
             CaseContext ctx = new CaseContext(task, tc);
             ctx.setBenchmarkRuns(runs);
+            ctx.setTimeoutEnabled(timeoutEnabled);
+            ctx.setTimeoutMillis(timeoutLimit);
             handler.run(ctx);
             results.add(ctx.result());
         }

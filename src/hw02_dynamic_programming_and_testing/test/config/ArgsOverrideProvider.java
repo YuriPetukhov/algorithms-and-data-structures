@@ -6,12 +6,13 @@ public class ArgsOverrideProvider {
 
     public ArgsOverride read(String[] args) {
         String task = getArg(args, "--task");
+        String type = getArg(args, "--type");
         String dir = getArg(args, "--dir");
 
         Path testDir = (dir == null || dir.isBlank()) ? null : Path.of(dir);
 
         return new ArgsOverride(
-                (task == null || task.isBlank()) ? null : task,
+                (task == null || task.isBlank()) ? null : type, task,
                 testDir
         );
     }

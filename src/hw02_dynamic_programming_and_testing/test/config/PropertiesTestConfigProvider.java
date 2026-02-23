@@ -23,6 +23,7 @@ public class PropertiesTestConfigProvider implements TestConfigProvider {
         Properties p = loader.loadFromClasspath(resourceName);
 
         String taskId = get(p, "test.task.id", null);
+        String taskType = get(p, "test.task.type", null);
         Path testDir = Path.of(get(p, "test.dir", "tests/hw02"));
 
         String inputExt = get(p, "test.input.ext", ".in");
@@ -35,14 +36,17 @@ public class PropertiesTestConfigProvider implements TestConfigProvider {
         boolean showDiff = getBool(p, "test.show.diff", true);
 
         boolean timeEnabled = getBool(p, "test.time.enabled", true);
+        boolean timeoutEnabled = getBool(p, "test.timeout.enabled", true);
         String raw = p.getProperty("test.time.unit");
 
         TimeUnit timeUnit = TimeUnitParser.tryParse(raw)
                 .orElse(TimeUnit.MILLISECONDS);
         int runs = Integer.parseInt(p.getProperty("test.benchmark.runs", "1"));
+        int timeoutMillis = Integer.parseInt(p.getProperty("test.timeout.millis", "120"));
 
 
         return new TestConfig(
+                taskType,
                 taskId,
                 testDir,
                 inputExt,
@@ -53,6 +57,8 @@ public class PropertiesTestConfigProvider implements TestConfigProvider {
                 showDiff,
                 timeEnabled,
                 timeUnit,
+                timeoutEnabled,
+                timeoutMillis,
                 runs
         );
     }

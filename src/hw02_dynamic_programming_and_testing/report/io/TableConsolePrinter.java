@@ -56,7 +56,8 @@ public class TableConsolePrinter {
 
     private String formatCell(Cell c, ReportTable table) {
         if (c == null) return "";
-        if (c.status() != TestStatus.PASSED) return "ERR";
+        if (c.status() != TestStatus.PASSED && c.status() != TestStatus.TIMEOUT) return "ERR";
+        if (c.status() == TestStatus.TIMEOUT) return "TIMEOUT";
         if (c.timeNanos() == null) return "";
 
         TimeUnit unit = table.displayTimeUnit();

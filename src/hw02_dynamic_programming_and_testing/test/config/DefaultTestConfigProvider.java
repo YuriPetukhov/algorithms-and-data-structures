@@ -17,10 +17,12 @@ public class DefaultTestConfigProvider implements TestConfigProvider {
         TestConfig base = baseProvider.provide(args);
         ArgsOverride ov = overrideProvider.read(args);
 
+        String taskType = (ov.taskType() != null) ? ov.taskType() : base.taskType();
         String taskId = (ov.taskId() != null) ? ov.taskId() : base.taskId();
         Path testDir = (ov.testDir() != null) ? ov.testDir() : base.testDir();
 
         return new TestConfig(
+                taskType,
                 taskId,
                 testDir,
                 base.inputExt(),
@@ -31,6 +33,8 @@ public class DefaultTestConfigProvider implements TestConfigProvider {
                 base.showDiff(),
                 base.timeEnabled(),
                 base.timeUnit(),
+                base.timeoutEnabled(),
+                base.timeoutMillis(),
                 base.benchmarkRuns()
         );
     }

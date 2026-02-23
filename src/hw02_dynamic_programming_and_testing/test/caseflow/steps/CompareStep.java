@@ -4,33 +4,34 @@ import hw02_dynamic_programming_and_testing.test.caseflow.CaseContext;
 import hw02_dynamic_programming_and_testing.test.caseflow.CaseStep;
 import hw02_dynamic_programming_and_testing.test.model.TestResult;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.math.BigInteger;
-import java.security.MessageDigest;
+
+import static hw02_dynamic_programming_and_testing.test.model.TestStatus.TIMEOUT;
 
 public class CompareStep implements CaseStep {
-
     @Override
     public void execute(CaseContext ctx) {
+        String act0 = ctx.actualNorm();
+        if (act0 != null && act0.trim().equalsIgnoreCase(TIMEOUT.name())) {
+            ctx.setResult(TestResult.timeout(ctx.testCase().name(), ctx.timeNanos(), null));
+            return;
+        }
+
         String exp = ctx.expectedNorm();
-        String act = ctx.actualNorm();
+        String act = act0;
 
         boolean ok;
-
         String expT = exp == null ? "" : exp.trim();
         String actT = act == null ? "" : act.trim();
 
         Double expNum = tryParseDoubleSafe(expT);
         Double actNum = tryParseDoubleSafe(actT);
+
         if (expNum != null && actNum != null) {
             ok = almostEquals(expNum, actNum);
-        }
-        else if (looksLikeInteger(expT) && looksLikeInteger(actT)
-                && (expT.length() >= 50 || actT.length() >= 50)) {
+        } else if (looksLikeInteger(expT) && looksLikeInteger(actT) && (expT.length() >= 50 || actT.length() >= 50)) {
             ok = new BigInteger(expT).equals(new BigInteger(actT));
-        }
-        else {
+        } else {
             ok = expT.equals(actT);
         }
 
@@ -44,7 +45,6 @@ public class CompareStep implements CaseStep {
     private static Double tryParseDoubleSafe(String t) {
         if (t == null) return null;
         if (t.length() > 200) return null;
-
         try {
             return Double.parseDouble(t.replace(',', '.'));
         } catch (Exception e) {
@@ -68,12 +68,8 @@ public class CompareStep implements CaseStep {
     private static boolean almostEquals(double expected, double actual) {
         double absEps = 2e-8;
         double relEps = 2e-8;
-
         double diff = Math.abs(expected - actual);
-        double tol  = Math.max(absEps, relEps * Math.max(1.0, Math.abs(expected)));
+        double tol = Math.max(absEps, relEps * Math.max(1.0, Math.abs(expected)));
         return diff <= tol;
     }
-
-
-
 }

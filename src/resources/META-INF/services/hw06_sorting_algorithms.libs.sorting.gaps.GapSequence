@@ -1,0 +1,5 @@
+hw06_sorting_algorithms.libs.sorting.gaps.CiuraGaps
+hw06_sorting_algorithms.libs.sorting.gaps.HalvingGaps
+hw06_sorting_algorithms.libs.sorting.gaps.HibbardGaps
+hw06_sorting_algorithms.libs.sorting.gaps.KnuthGaps
+hw06_sorting_algorithms.libs.sorting.gaps.TokudaGaps

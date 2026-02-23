@@ -25,4 +25,8 @@ public record TestResult(
         String msg = e.getClass().getSimpleName() + ": " + (e.getMessage() == null ? "" : e.getMessage());
         return new TestResult(testName, TestStatus.ERROR, 0, null, null, msg);
     }
+    public static TestResult timeout(String testName, long timeNanos, String msg) {
+        String m = (msg == null || msg.isBlank()) ? "Timeout" : msg;
+        return new TestResult(testName, TestStatus.TIMEOUT, timeNanos, null, null, m);
+    }
 }

@@ -16,6 +16,7 @@ public record ReportConfig(
     public record Suite(
             String name,
             Path testDir,
+            String taskType,
             List<String> taskIds,
             String rowKeyFormatId,
             TimeUnit timeUnit,
@@ -43,6 +44,8 @@ public record ReportConfig(
 
             String rawTimeUnit = get(p, "report.time.unit", null);
 
+            String taskType = get(p, "report." + name + ".task.type", null);
+
             TimeUnit timeUnit = TimeUnitParser.tryParse(rawTimeUnit)
                     .orElse(TimeUnit.MILLISECONDS);
 
@@ -54,6 +57,7 @@ public record ReportConfig(
             suites.add(new Suite(
                     name,
                     Path.of(dir),
+                    taskType,
                     tasks,
                     rowKey,
                     timeUnit,

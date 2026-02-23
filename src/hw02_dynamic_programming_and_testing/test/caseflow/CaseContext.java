@@ -21,7 +21,27 @@ public class CaseContext {
 
     private TestResult result;
 
+    boolean timeoutEnabled;
+
+    int timeoutMillis;
+
     private int benchmarkRuns = 1;
+
+    private boolean timeout;
+    private String timeoutMessage;
+
+    public void markTimeout(String msg) {
+        this.timeout = true;
+        this.timeoutMessage = msg;
+    }
+
+    public boolean isTimeout() {
+        return timeout;
+    }
+
+    public String timeoutMessage() {
+        return timeoutMessage;
+    }
 
     public CaseContext(Task task, TestCase testCase) {
         this.task = task;
@@ -55,8 +75,15 @@ public class CaseContext {
     public TestResult result() { return result; }
     public void setResult(TestResult result) { this.result = result; }
 
+    public boolean timeoutEnabled() { return timeoutEnabled; }
+    public void setTimeoutEnabled(boolean timeoutEnabled) { this.timeoutEnabled = timeoutEnabled; }
+
+    public long timeoutMillis() { return timeoutMillis; }
+    public void setTimeoutMillis(int timeoutMillis) { this.timeoutMillis = timeoutMillis; }
+
     public int benchmarkRuns() { return benchmarkRuns; }
     public void setBenchmarkRuns(int benchmarkRuns) {
         this.benchmarkRuns = Math.max(1, benchmarkRuns);
     }
+
 }

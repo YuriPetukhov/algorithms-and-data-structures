@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.concurrent.TimeUnit;
 
 public record TestConfig(
+        String taskType,
         String taskId,
         Path testDir,
         String inputExt,
@@ -14,6 +15,11 @@ public record TestConfig(
         boolean showDiff,
         boolean timeEnabled,
         TimeUnit timeUnit,
+
+        boolean timeoutEnabled,
+
+        int timeoutMillis,
+
         int benchmarkRuns
 ) {
     public Path inputsDir() {
