@@ -33,7 +33,7 @@ public final class ServiceSortingTask implements MeasurableTask<int[], int[]> {
             throw new IllegalStateException("SortingVariant.build() returned null for id: " + this.variantId);
         }
 
-        this.solverAdapter = new SortSolverAdapter(sortAlgorithm);
+        this.solverAdapter = new SortSolverAdapter(sortAlgorithm, true);
     }
 
     @Override
