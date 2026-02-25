@@ -6,3 +6,5 @@ hw06_sorting_algorithms.programs.sorting.variants.InsertionSortShiftVariant
 hw06_sorting_algorithms.programs.sorting.variants.ShellSortVariant
 hw06_sorting_algorithms.programs.sorting.variants.ShellSortKnuthVariant
 hw06_sorting_algorithms.programs.sorting.variants.ShellSortCiuraVariant
+hw07_selection_and_heap_sort.programs.sorting.variants.SelectionSortVariant
+hw07_selection_and_heap_sort.programs.sorting.variants.HeapSortVariant
