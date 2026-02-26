@@ -56,7 +56,8 @@ public final class ControlsPanel extends JPanel {
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        this.modeCombo = new JComboBox<>(new String[] { "Compare", "Demo" });
+        this.modeCombo = new JComboBox<>(new String[] { "Compare", "Heap Tree" });
+        this.modeCombo.setSelectedItem("Compare");
 
         this.programComboBox = new JComboBox<>(programs.toArray(new ProgramBundle[0]));
         this.programComboBox.setRenderer((list, value, index, isSelected, cellHasFocus) -> {

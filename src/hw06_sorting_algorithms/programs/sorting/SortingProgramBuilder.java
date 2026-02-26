@@ -12,11 +12,6 @@ public final class SortingProgramBuilder implements ProgramBuilder {
         SortingController controller = new SortingController();
         BarsSceneAdapter sceneAdapter = new BarsSceneAdapter();
 
-        return new SortingProgramBundle(
-                "sorting-bars",
-                "Sorting (Bars)",
-                controller,
-                sceneAdapter
-        );
+        return new SortingProgramBundle(controller, sceneAdapter);
     }
 }

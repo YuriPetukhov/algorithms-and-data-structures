@@ -1,9 +1,13 @@
 package hw06_sorting_algorithms.visual.ui.frame;
 
+import hw06_sorting_algorithms.programs.sorting.SortingProgramBundle;
+import hw06_sorting_algorithms.programs.sorting.ui.SortingController;
 import hw06_sorting_algorithms.visual.platform.compare.CompareCapable;
 import hw06_sorting_algorithms.visual.platform.Player;
 import hw06_sorting_algorithms.visual.platform.ProgramBundle;
 import hw06_sorting_algorithms.visual.platform.compare.CompareRequest;
+import hw06_sorting_algorithms.visual.programs.sorting.BarsSceneAdapter;
+import hw06_sorting_algorithms.visual.programs.sorting.HeapTreeSceneAdapter;
 import hw06_sorting_algorithms.visual.scene.Scene;
 import hw06_sorting_algorithms.visual.ui.compare.ComparePanel;
 import hw06_sorting_algorithms.visual.ui.compare.CompareRunner;
@@ -35,7 +39,7 @@ public final class VisualizerFrame extends JFrame implements PlaybackEngine.List
     private final CardLayout compareCardsLayout = new CardLayout();
     private final JPanel compareCards = new JPanel(compareCardsLayout);
     private JSplitPane split;
-    private boolean demoMode;
+    private boolean heapTreeMode;
 
     public VisualizerFrame(String title, List<ProgramBundle<?, ?>> programs) {
         super(title);
@@ -129,23 +133,12 @@ public final class VisualizerFrame extends JFrame implements PlaybackEngine.List
         compareComputed = false;
         comparePanel.clearResults();
 
-        if (demoMode) {
-            comparePanel.clear();
-            comparePanel.setVisible(false);
-            compareCardsLayout.show(compareCards, "empty");
-            return;
-        }
-
-        if (bundle instanceof CompareCapable<?> compareCapableProgram) {
-            comparePanel.setProgram(compareCapableProgram);
-            comparePanel.setVisible(true);
-        } else {
-            comparePanel.clear();
-            comparePanel.setVisible(false);
-        }
-
         setTitle(bundle.programName());
         controls.setStatusText(statusPresenter.noPlayer());
+
+        // применяем текущий режим (сцена + compare + фильтр алгоритмов)
+        setMode(controls.selectedMode());
+
         updateButtons();
     }
 
@@ -172,21 +165,51 @@ public final class VisualizerFrame extends JFrame implements PlaybackEngine.List
 
     private void setMode(String mode) {
         String m = (mode == null) ? "" : mode.trim().toLowerCase();
-        demoMode = m.contains("demo");
+        heapTreeMode = m.contains("heap");
 
-        if (demoMode) {
+        playback.stop();
+        playback.setPlayer(null);
+        lockedInput = null;
+        compareComputed = false;
+        comparePanel.clearResults();
+        controls.setStatusText(statusPresenter.noPlayer());
+
+        if (heapTreeMode) {
+            host.setScene(new HeapTreeSceneAdapter());
+        } else {
+            host.setScene(new BarsSceneAdapter());
+        }
+
+        if (host.controller() instanceof SortingController ctl) {
+            if (heapTreeMode) {
+                ctl.setVariantFilter(v -> v.id().toLowerCase().contains("heap"));
+            } else {
+                ctl.setVariantFilter(null);
+            }
+        }
+
+        if (heapTreeMode) {
             compareCardsLayout.show(compareCards, "empty");
             comparePanel.setVisible(false);
             comparePanel.setEnabledToggle(false);
-            comparePanel.clearResults();
-
             SwingUtilities.invokeLater(() -> split.setDividerLocation(1.0));
         } else {
             compareCardsLayout.show(compareCards, "compare");
             comparePanel.setEnabledToggle(true);
 
+            ProgramBundle<?, ?> bundle = host.bundle();
+            if (bundle instanceof CompareCapable<?> compareCapableProgram) {
+                comparePanel.setProgram(compareCapableProgram);
+                comparePanel.setVisible(true);
+            } else {
+                comparePanel.clear();
+                comparePanel.setVisible(false);
+            }
+
             SwingUtilities.invokeLater(() -> split.setDividerLocation(0.68));
         }
+
+        updateButtons();
     }
 
     @Override
@@ -217,7 +240,7 @@ public final class VisualizerFrame extends JFrame implements PlaybackEngine.List
         if (lockedInput == null) return;
         if (!comparePanel.enabled()) return;
         if (!(host.bundle() instanceof CompareCapable<?> compareCapableProgram)) return;
-        if (demoMode) return;
+        if (heapTreeMode) return;
 
         CompareRequest request;
         try {

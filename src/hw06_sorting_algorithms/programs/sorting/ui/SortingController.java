@@ -13,6 +13,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Predicate;
 
 public final class SortingController implements ProgramController<int[]> {
 
@@ -24,6 +25,7 @@ public final class SortingController implements ProgramController<int[]> {
     private final JTextField maxField  = new JTextField("99", 4);
     private final JTextField seedField = new JTextField("", 6);
 
+    private Predicate<SortingVariant> variantFilter = v -> true;
     private final List<SortingVariant> sortingVariants;
     private final JComboBox<SortingVariant> algorithmComboBox;
 
@@ -158,6 +160,11 @@ public final class SortingController implements ProgramController<int[]> {
         return new SortingParams(selectedGap());
     }
 
+    public void setVariantFilter(Predicate<SortingVariant> filter) {
+        this.variantFilter = (filter == null) ? v -> true : filter;
+        rebuildVariantCombo();
+    }
+
     private SortingVariant longestVariantLabel() {
         SortingVariant longest = sortingVariants.get(0);
         int maxLength = longest.displayName().length();
@@ -178,5 +185,22 @@ public final class SortingController implements ProgramController<int[]> {
         return displayName.startsWith(SORTING_PREFIX_RU)
                 ? displayName.substring(SORTING_PREFIX_RU.length()).trim()
                 : displayName;
+    }
+
+    private void rebuildVariantCombo() {
+        SortingVariant prev = (SortingVariant) algorithmComboBox.getSelectedItem();
+
+        algorithmComboBox.removeAllItems();
+        for (SortingVariant v : variants()) {
+            if (variantFilter.test(v)) algorithmComboBox.addItem(v);
+        }
+
+        if (prev != null) algorithmComboBox.setSelectedItem(prev);
+
+        if (algorithmComboBox.getSelectedItem() == null && algorithmComboBox.getItemCount() > 0) {
+            algorithmComboBox.setSelectedIndex(0);
+        }
+
+        updateGapPanelVisibility();
     }
 }

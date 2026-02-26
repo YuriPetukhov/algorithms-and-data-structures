@@ -41,6 +41,19 @@ public final class ProgramHost {
         sceneHost.repaint();
     }
 
+    public void setScene(Scene<?> newScene) {
+        if (newScene == null) throw new IllegalArgumentException("newScene is null");
+
+        this.scene = newScene;
+
+        sceneHost.removeAll();
+        JComponent sceneComp = newScene.component();
+        if (sceneComp != null) sceneHost.add(sceneComp, BorderLayout.CENTER);
+
+        sceneHost.revalidate();
+        sceneHost.repaint();
+    }
+
     public ProgramBundle<?, ?> bundle() { return bundle; }
     public ProgramController<?> controller() { return controller; }
     public Scene<?> scene() { return scene; }

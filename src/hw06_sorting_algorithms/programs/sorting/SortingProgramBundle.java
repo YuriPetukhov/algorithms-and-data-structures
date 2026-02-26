@@ -34,21 +34,26 @@ public final class SortingProgramBundle implements ProgramBundle<int[], SortPlay
     private final Scene<SortPlaybackState> scene;
     private final List<AlgorithmVariant<int[]>> variants;
 
-    private final String id;
-    private final String name;
-
     public SortingProgramBundle(SortingController controller, Scene<SortPlaybackState> scene) {
-        this("sorting", "Sorting", controller, scene);
-    }
+        if (controller == null) throw new IllegalArgumentException("controller is null");
+        if (scene == null) throw new IllegalArgumentException("scene is null");
 
-    public SortingProgramBundle(String id, String name, SortingController controller, Scene<SortPlaybackState> scene) {
-        this.id = id;
-        this.name = name;
         this.controller = controller;
         this.scene = scene;
+
         this.variants = controller.variants().stream()
                 .map(sortingVariant -> (AlgorithmVariant<int[]>) new SortingVariantAdapter(sortingVariant, controller::params))
                 .toList();
+    }
+
+    @Override
+    public String id() {
+        return "sorting";
+    }
+
+    @Override
+    public String programName() {
+        return "Sorting";
     }
 
     @Override
@@ -139,7 +144,6 @@ public final class SortingProgramBundle implements ProgramBundle<int[], SortPlay
             long startNanos = System.nanoTime();
             algorithmVariant.runPlain(input);
             long endNanos = System.nanoTime();
-
             bestNanos = Math.min(bestNanos, endNanos - startNanos);
         }
         return bestNanos;
@@ -187,7 +191,4 @@ public final class SortingProgramBundle implements ProgramBundle<int[], SortPlay
             sortAlgorithm.sort(workingCopy, PlainIntArrayOps.INSTANCE);
         }
     }
-
-    @Override public String id() { return id; }
-    @Override public String programName() { return name; }
 }
