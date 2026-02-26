@@ -16,6 +16,7 @@ public final class ControlsPanel extends JPanel {
         void onPause();
         void onReset();
         void onSpeedChanged(int speedValue);
+        void onModeChanged(String mode);
     }
 
     private static final int SPEED_MIN = 1;
@@ -32,6 +33,8 @@ public final class ControlsPanel extends JPanel {
     private final JButton pauseButton = new JButton("Pause");
     private final JButton resetButton = new JButton("Reset");
 
+    JComboBox<String> modeCombo;
+
     private final JSlider speedSlider = new JSlider(SPEED_MIN, SPEED_MAX, SPEED_DEFAULT);
     private final JLabel speedValueLabel = new JLabel(SPEED_DEFAULT + "/s");
 
@@ -45,12 +48,15 @@ public final class ControlsPanel extends JPanel {
         @Override public void onPause() {}
         @Override public void onReset() {}
         @Override public void onSpeedChanged(int speedValue) {}
+        @Override public void onModeChanged(String mode) {}
     };
 
     public ControlsPanel(List<ProgramBundle<?, ?>> programs) {
         if (programs == null) throw new IllegalArgumentException("programs is null");
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+        this.modeCombo = new JComboBox<>(new String[] { "Compare", "Demo" });
 
         this.programComboBox = new JComboBox<>(programs.toArray(new ProgramBundle[0]));
         this.programComboBox.setRenderer((list, value, index, isSelected, cellHasFocus) -> {
@@ -102,6 +108,11 @@ public final class ControlsPanel extends JPanel {
 
     public ProgramBundle<?, ?> selectedProgram() {
         return (ProgramBundle<?, ?>) programComboBox.getSelectedItem();
+    }
+
+    public String selectedMode() {
+        Object v = modeCombo.getSelectedItem();
+        return v == null ? "" : v.toString();
     }
 
     private JComponent buildStatusRow() {
@@ -159,6 +170,8 @@ public final class ControlsPanel extends JPanel {
         JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 0));
         leftPanel.add(new JLabel("Program:"));
         leftPanel.add(programComboBox);
+        leftPanel.add(new JLabel("Mode:"));
+        leftPanel.add(modeCombo);
 
         buildRowPanel.add(leftPanel, BorderLayout.WEST);
         buildRowPanel.add(controllerHostPanel, BorderLayout.CENTER);
@@ -180,6 +193,11 @@ public final class ControlsPanel extends JPanel {
             int speedValue = speedSlider.getValue();
             speedValueLabel.setText(speedValue + "/s");
             listener.onSpeedChanged(speedValue);
+        });
+
+        modeCombo.addActionListener(e -> {
+            Object v = modeCombo.getSelectedItem();
+            listener.onModeChanged(v == null ? "" : v.toString());
         });
     }
 }

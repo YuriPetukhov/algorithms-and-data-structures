@@ -1,5 +1,6 @@
 package hw06_sorting_algorithms.visual.registry;
 
+import hw06_sorting_algorithms.programs.sorting.SortingHeapTreeProgramBuilder;
 import hw06_sorting_algorithms.visual.platform.ProgramBundle;
 import hw06_sorting_algorithms.programs.sorting.SortingProgramBuilder;
 
@@ -10,7 +11,8 @@ public final class ProgramsBuilder {
 
     public static List<ProgramBundle<?, ?>> all() {
         return List.of(
-                new SortingProgramBuilder().build()
+                new SortingProgramBuilder().build(),
+                new SortingHeapTreeProgramBuilder().build()
         );
     }
 }

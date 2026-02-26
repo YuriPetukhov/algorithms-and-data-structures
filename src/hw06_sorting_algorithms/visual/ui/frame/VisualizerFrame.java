@@ -32,6 +32,11 @@ public final class VisualizerFrame extends JFrame implements PlaybackEngine.List
     private Object lockedInput;
     private boolean compareComputed;
 
+    private final CardLayout compareCardsLayout = new CardLayout();
+    private final JPanel compareCards = new JPanel(compareCardsLayout);
+    private JSplitPane split;
+    private boolean demoMode;
+
     public VisualizerFrame(String title, List<ProgramBundle<?, ?>> programs) {
         super(title);
 
@@ -57,6 +62,7 @@ public final class VisualizerFrame extends JFrame implements PlaybackEngine.List
             @Override public void onPause() { playback.pause(); refreshFromPlayback(); }
             @Override public void onReset() { resetWithRebuild(); }
             @Override public void onSpeedChanged(int speedValue) { playback.updateDelay(); }
+            @Override public void onModeChanged(String mode) { setMode(mode); }
         });
 
         switchProgram(programs.get(0));
@@ -67,11 +73,16 @@ public final class VisualizerFrame extends JFrame implements PlaybackEngine.List
         root.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
         root.add(controls, BorderLayout.NORTH);
 
-        compareHost.add(comparePanel, BorderLayout.CENTER);
+        compareCards.add(comparePanel, "compare");
+        compareCards.add(new JPanel(), "empty");
+        compareHost.add(compareCards, BorderLayout.CENTER);
+
+        compareHost.setMinimumSize(new Dimension(360, 0));
+        compareHost.setPreferredSize(new Dimension(420, 0));
         compareHost.setMinimumSize(new Dimension(360, 0));
         compareHost.setPreferredSize(new Dimension(420, 0));
 
-        JSplitPane split = new JSplitPane(
+        split = new JSplitPane(
                 JSplitPane.HORIZONTAL_SPLIT,
                 sceneHost,
                 compareHost
@@ -118,6 +129,13 @@ public final class VisualizerFrame extends JFrame implements PlaybackEngine.List
         compareComputed = false;
         comparePanel.clearResults();
 
+        if (demoMode) {
+            comparePanel.clear();
+            comparePanel.setVisible(false);
+            compareCardsLayout.show(compareCards, "empty");
+            return;
+        }
+
         if (bundle instanceof CompareCapable<?> compareCapableProgram) {
             comparePanel.setProgram(compareCapableProgram);
             comparePanel.setVisible(true);
@@ -152,6 +170,25 @@ public final class VisualizerFrame extends JFrame implements PlaybackEngine.List
         }
     }
 
+    private void setMode(String mode) {
+        String m = (mode == null) ? "" : mode.trim().toLowerCase();
+        demoMode = m.contains("demo");
+
+        if (demoMode) {
+            compareCardsLayout.show(compareCards, "empty");
+            comparePanel.setVisible(false);
+            comparePanel.setEnabledToggle(false);
+            comparePanel.clearResults();
+
+            SwingUtilities.invokeLater(() -> split.setDividerLocation(1.0));
+        } else {
+            compareCardsLayout.show(compareCards, "compare");
+            comparePanel.setEnabledToggle(true);
+
+            SwingUtilities.invokeLater(() -> split.setDividerLocation(0.68));
+        }
+    }
+
     @Override
     public void onNoPlayer() {
         controls.setStatusText(statusPresenter.noPlayer());
@@ -180,6 +217,7 @@ public final class VisualizerFrame extends JFrame implements PlaybackEngine.List
         if (lockedInput == null) return;
         if (!comparePanel.enabled()) return;
         if (!(host.bundle() instanceof CompareCapable<?> compareCapableProgram)) return;
+        if (demoMode) return;
 
         CompareRequest request;
         try {
