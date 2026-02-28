@@ -17,7 +17,6 @@ public final class ControlsPanel extends JPanel {
         void onPause();
         void onReset();
         void onSpeedChanged(int speedValue);
-        /** modeId */
         void onModeChanged(String modeId);
     }
 
