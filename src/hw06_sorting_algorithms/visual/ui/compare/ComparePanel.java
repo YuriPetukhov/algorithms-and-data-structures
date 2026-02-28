@@ -124,10 +124,6 @@ public final class ComparePanel extends JPanel {
         setVisible(compareProgram != null);
     }
 
-    public void clear() {
-        setProgram(null);
-    }
-
     public boolean enabled() {
         return compareProgram != null && enableToggle.isSelected();
     }

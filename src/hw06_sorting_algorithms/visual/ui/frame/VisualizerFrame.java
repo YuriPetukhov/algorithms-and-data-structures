@@ -7,7 +7,6 @@ import hw06_sorting_algorithms.visual.platform.ProgramBundle;
 import hw06_sorting_algorithms.visual.platform.compare.CompareCapable;
 import hw06_sorting_algorithms.visual.platform.compare.CompareRequest;
 import hw06_sorting_algorithms.visual.scene.Scene;
-import hw06_sorting_algorithms.visual.ui.compare.ComparePanel;
 import hw06_sorting_algorithms.visual.ui.compare.CompareRunner;
 import hw06_sorting_algorithms.visual.ui.compare.CompareSidebar;
 import hw06_sorting_algorithms.visual.ui.components.ControlsPanel;
@@ -27,6 +26,9 @@ public final class VisualizerFrame extends JFrame implements PlaybackEngine.List
     private final PlaybackEngine playback;
     private final CompareRunner compareRunner = new CompareRunner();
     private final CompareSidebar compareSidebar = new CompareSidebar();
+
+    private static final double DIVIDER_WITH_COMPARE = 0.68;
+    private static final double DIVIDER_HIDE_COMPARE = 1.0;
     private Object lockedInput;
     private boolean compareComputed;
     private JSplitPane split;
@@ -49,75 +51,33 @@ public final class VisualizerFrame extends JFrame implements PlaybackEngine.List
         setMinimumSize(new Dimension(1280, 660));
         setLocationByPlatform(true);
 
-        controls.setListener(new ControlsPanel.Listener() {
-            @Override
-            public void onProgramChanged(ProgramBundle<?, ?> selectedProgram) {
-                switchProgram(selectedProgram);
-            }
-
-            @Override
-            public void onBuild() {
-                buildPlayer();
-            }
-
-            @Override
-            public void onStep() {
-                playback.stepOnce();
-            }
-
-            @Override
-            public void onPlay() {
-                playback.play();
-            }
-
-            @Override
-            public void onPause() {
-                playback.pause();
-                refreshFromPlayback();
-            }
-
-            @Override
-            public void onReset() {
-                resetWithRebuild();
-            }
-
-            @Override
-            public void onSpeedChanged(int speedValue) {
-                playback.updateDelay();
-            }
-
-            @Override
-            public void onModeChanged(String modeId) {
-                stopAndClearSession();
-                applyMode(modeId);
-            }
-        });
+        wireControls();
 
         switchProgram(programs.get(0));
     }
 
     @Override
     public void onNoPlayer() {
-        controls.setStatusText(statusPresenter.noPlayer());
+        presentState(null, null);
         updateButtons();
     }
 
     @Override
     public void onState(Object state) {
-        setSceneStateRaw(host.scene(), state);
-        controls.setStatusText(statusPresenter.format(playback.player(), state));
+        presentState(playback.player(), state);
         updateButtons();
     }
 
     @Override
     public void onDone() {
         Player<?> currentPlayer = playback.player();
-        Object state = currentPlayer == null ? null : currentPlayer.state();
-        controls.setStatusText(statusPresenter.format(currentPlayer, state));
+        Object state = (currentPlayer == null) ? null : currentPlayer.state();
+        presentState(currentPlayer, state);
 
         updateButtons();
         maybeCompare();
     }
+
     private JComponent buildRoot() {
         JPanel root = new JPanel(new BorderLayout(12, 12));
         root.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
@@ -135,7 +95,7 @@ public final class VisualizerFrame extends JFrame implements PlaybackEngine.List
         center.add(split, BorderLayout.CENTER);
         root.add(center, BorderLayout.CENTER);
 
-        SwingUtilities.invokeLater(() -> split.setDividerLocation(0.68));
+        SwingUtilities.invokeLater(() -> split.setDividerLocation(DIVIDER_WITH_COMPARE));
         return root;
     }
 
@@ -146,13 +106,8 @@ public final class VisualizerFrame extends JFrame implements PlaybackEngine.List
 
     private void refreshFromPlayback() {
         Player<?> currentPlayer = playback.player();
-        if (currentPlayer == null) {
-            controls.setStatusText(statusPresenter.noPlayer());
-        } else {
-            Object state = currentPlayer.state();
-            setSceneStateRaw(host.scene(), state);
-            controls.setStatusText(statusPresenter.format(currentPlayer, state));
-        }
+        Object state = (currentPlayer == null) ? null : currentPlayer.state();
+        presentState(currentPlayer, state);
         updateButtons();
     }
 
@@ -171,30 +126,10 @@ public final class VisualizerFrame extends JFrame implements PlaybackEngine.List
         } else {
             controls.setModes(List.of(), "");
             currentModeId = "";
-            applyCompareVisibility(bundle, true);
+            updateCompareSidebar(bundle);
         }
 
         updateButtons();
-    }
-
-    private void applyCompareVisibility(ProgramBundle<?, ?> bundle, boolean preferCompareWhenPossible) {
-        boolean compareEnabled = preferCompareWhenPossible && (bundle instanceof CompareCapable<?>);
-
-        if (!compareEnabled) {
-            compareSidebar.showEmpty();
-            SwingUtilities.invokeLater(() -> split.setDividerLocation(1.0));
-            return;
-        }
-
-        compareSidebar.showCompare();
-
-        if (bundle instanceof CompareCapable<?> compareCapableProgram) {
-            compareSidebar.panel().setProgram(compareCapableProgram);
-        } else {
-            compareSidebar.panel().clear();
-        }
-
-        SwingUtilities.invokeLater(() -> split.setDividerLocation(0.68));
     }
 
     private void buildPlayer() {
@@ -229,21 +164,7 @@ public final class VisualizerFrame extends JFrame implements PlaybackEngine.List
             mc.applyMode(currentModeId);
         }
 
-        boolean compareEnabled = isCompareEnabled(bundle, currentModeId);
-        if (!compareEnabled) {
-            compareSidebar.showEmpty();
-            SwingUtilities.invokeLater(() -> split.setDividerLocation(1.0));
-        } else {
-            compareSidebar.showCompare();
-
-            if (bundle instanceof CompareCapable<?> compareCapableProgram) {
-                compareSidebar.panel().setProgram(compareCapableProgram);
-            } else {
-                compareSidebar.panel().clear();
-            }
-
-            SwingUtilities.invokeLater(() -> split.setDividerLocation(0.68));
-        }
+        updateCompareSidebar(bundle);
 
         updateButtons();
     }
@@ -263,6 +184,7 @@ public final class VisualizerFrame extends JFrame implements PlaybackEngine.List
         compareComputed = false;
         compareSidebar.panel().clearResults();
         controls.setStatusText(statusPresenter.noPlayer());
+        updateButtons();
     }
 
     private void maybeCompare() {
@@ -342,6 +264,79 @@ public final class VisualizerFrame extends JFrame implements PlaybackEngine.List
         String message = exception.getMessage();
         String text = (message == null || message.isBlank()) ? exception.toString() : message;
         JOptionPane.showMessageDialog(this, text, title, JOptionPane.ERROR_MESSAGE);
+    }
+
+    private void updateCompareSidebar(ProgramBundle<?, ?> bundle) {
+        boolean modeAllowsCompare = isCompareEnabled(bundle, currentModeId);
+        boolean programCanCompare = bundle instanceof CompareCapable<?>;
+
+        boolean compareEnabled = modeAllowsCompare && programCanCompare;
+
+        if (!compareEnabled) {
+            compareSidebar.showEmpty();
+            SwingUtilities.invokeLater(() -> split.setDividerLocation(DIVIDER_HIDE_COMPARE));
+            return;
+        }
+
+        compareSidebar.showCompare();
+        compareSidebar.panel().setProgram((CompareCapable<?>) bundle);
+
+        SwingUtilities.invokeLater(() -> split.setDividerLocation(DIVIDER_WITH_COMPARE));
+    }
+
+    private void wireControls() {
+        controls.setListener(new ControlsPanel.Listener() {
+            @Override
+            public void onProgramChanged(ProgramBundle<?, ?> selectedProgram) {
+                switchProgram(selectedProgram);
+            }
+
+            @Override
+            public void onBuild() {
+                buildPlayer();
+            }
+
+            @Override
+            public void onStep() {
+                playback.stepOnce();
+            }
+
+            @Override
+            public void onPlay() {
+                playback.play();
+            }
+
+            @Override
+            public void onPause() {
+                playback.pause();
+                refreshFromPlayback();
+            }
+
+            @Override
+            public void onReset() {
+                resetWithRebuild();
+            }
+
+            @Override
+            public void onSpeedChanged(int speedValue) {
+                playback.updateDelay();
+            }
+
+            @Override
+            public void onModeChanged(String modeId) {
+                stopAndClearSession();
+                applyMode(modeId);
+            }
+        });
+    }
+
+    private void presentState(Player<?> player, Object state) {
+        if (player == null) {
+            controls.setStatusText(statusPresenter.noPlayer());
+            return;
+        }
+        if (state != null) setSceneStateRaw(host.scene(), state);
+        controls.setStatusText(statusPresenter.format(player, state));
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
