@@ -19,7 +19,7 @@ public final class CompareRunner {
         new SwingWorker<CompareReport, Void>() {
             @Override
             protected CompareReport doInBackground() {
-                return (CompareReport) cap.compare(lockedInput, request);
+                return cap.compare(lockedInput, request);
             }
 
             @Override

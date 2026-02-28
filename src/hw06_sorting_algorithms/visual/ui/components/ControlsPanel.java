@@ -1,5 +1,6 @@
 package hw06_sorting_algorithms.visual.ui.components;
 
+import hw06_sorting_algorithms.visual.platform.ModeDescriptor;
 import hw06_sorting_algorithms.visual.platform.ProgramBundle;
 
 import javax.swing.*;
@@ -16,28 +17,24 @@ public final class ControlsPanel extends JPanel {
         void onPause();
         void onReset();
         void onSpeedChanged(int speedValue);
-        void onModeChanged(String mode);
+        /** modeId */
+        void onModeChanged(String modeId);
     }
 
     private static final int SPEED_MIN = 1;
     private static final int SPEED_MAX = 120;
     private static final int SPEED_DEFAULT = 30;
     private static final int SPEED_SLIDER_WIDTH = 220;
-
     private final JComboBox<ProgramBundle<?, ?>> programComboBox;
     private final JLabel statusLabel = new JLabel();
-
     private final JButton buildButton = new JButton("Build");
     private final JButton stepButton  = new JButton("Step");
     private final JButton playButton  = new JButton("Play");
     private final JButton pauseButton = new JButton("Pause");
     private final JButton resetButton = new JButton("Reset");
-
-    JComboBox<String> modeCombo;
-
+    private final JComboBox<ModeDescriptor> modeCombo = new JComboBox<>();
     private final JSlider speedSlider = new JSlider(SPEED_MIN, SPEED_MAX, SPEED_DEFAULT);
     private final JLabel speedValueLabel = new JLabel(SPEED_DEFAULT + "/s");
-
     private final JPanel controllerHostPanel = new JPanel(new BorderLayout());
 
     private Listener listener = new Listener() {
@@ -48,7 +45,7 @@ public final class ControlsPanel extends JPanel {
         @Override public void onPause() {}
         @Override public void onReset() {}
         @Override public void onSpeedChanged(int speedValue) {}
-        @Override public void onModeChanged(String mode) {}
+        @Override public void onModeChanged(String modeId) {}
     };
 
     public ControlsPanel(List<ProgramBundle<?, ?>> programs) {
@@ -56,8 +53,15 @@ public final class ControlsPanel extends JPanel {
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        this.modeCombo = new JComboBox<>(new String[] { "Compare", "Heap Tree" });
-        this.modeCombo.setSelectedItem("Compare");
+        modeCombo.setRenderer((list, value, index, isSelected, cellHasFocus) -> {
+            JLabel label = new JLabel(value == null ? "" : value.displayName());
+            if (isSelected) {
+                label.setOpaque(true);
+                label.setBackground(list.getSelectionBackground());
+                label.setForeground(list.getSelectionForeground());
+            }
+            return label;
+        });
 
         this.programComboBox = new JComboBox<>(programs.toArray(new ProgramBundle[0]));
         this.programComboBox.setRenderer((list, value, index, isSelected, cellHasFocus) -> {
@@ -103,17 +107,40 @@ public final class ControlsPanel extends JPanel {
         resetButton.setEnabled(resetEnabled);
     }
 
-    public void setSelectedProgram(ProgramBundle<?, ?> program) {
-        programComboBox.setSelectedItem(program);
-    }
-
     public ProgramBundle<?, ?> selectedProgram() {
         return (ProgramBundle<?, ?>) programComboBox.getSelectedItem();
     }
 
-    public String selectedMode() {
-        Object v = modeCombo.getSelectedItem();
-        return v == null ? "" : v.toString();
+    public void setModes(List<ModeDescriptor> modes, String selectModeId) {
+        modeCombo.removeAllItems();
+
+        if (modes != null) {
+            for (ModeDescriptor m : modes) {
+                modeCombo.addItem(m);
+            }
+        }
+
+        boolean hasModes = modeCombo.getItemCount() > 0;
+        modeCombo.setEnabled(hasModes);
+        modeCombo.setVisible(hasModes);
+
+        if (hasModes) {
+            if (selectModeId != null && !selectModeId.isBlank()) {
+                for (int i = 0; i < modeCombo.getItemCount(); i++) {
+                    ModeDescriptor m = modeCombo.getItemAt(i);
+                    if (m != null && selectModeId.equals(m.id())) {
+                        modeCombo.setSelectedIndex(i);
+                        return;
+                    }
+                }
+            }
+            modeCombo.setSelectedIndex(0);
+        }
+    }
+
+    public String selectedModeId() {
+        ModeDescriptor m = (ModeDescriptor) modeCombo.getSelectedItem();
+        return m == null ? "" : m.id();
     }
 
     private JComponent buildStatusRow() {
@@ -171,6 +198,7 @@ public final class ControlsPanel extends JPanel {
         JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 0));
         leftPanel.add(new JLabel("Program:"));
         leftPanel.add(programComboBox);
+
         leftPanel.add(new JLabel("Mode:"));
         leftPanel.add(modeCombo);
 
@@ -197,8 +225,8 @@ public final class ControlsPanel extends JPanel {
         });
 
         modeCombo.addActionListener(e -> {
-            Object v = modeCombo.getSelectedItem();
-            listener.onModeChanged(v == null ? "" : v.toString());
+            String modeId = selectedModeId();
+            listener.onModeChanged(modeId);
         });
     }
 }

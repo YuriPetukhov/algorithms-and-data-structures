@@ -9,15 +9,14 @@ import hw06_sorting_algorithms.programs.sorting.spi.SortingVariant;
 import hw06_sorting_algorithms.programs.sorting.trace.TraceRecorder;
 import hw06_sorting_algorithms.programs.sorting.trace.TracingIntArrayOps;
 import hw06_sorting_algorithms.programs.sorting.ui.SortingController;
-import hw06_sorting_algorithms.visual.platform.AlgorithmVariant;
-import hw06_sorting_algorithms.visual.platform.Player;
-import hw06_sorting_algorithms.visual.platform.ProgramBundle;
-import hw06_sorting_algorithms.visual.platform.ProgramController;
+import hw06_sorting_algorithms.visual.platform.*;
 import hw06_sorting_algorithms.visual.platform.compare.CompareCapable;
 import hw06_sorting_algorithms.visual.platform.compare.CompareReport;
 import hw06_sorting_algorithms.visual.platform.compare.CompareRequest;
 import hw06_sorting_algorithms.visual.platform.compare.CompareRow;
 import hw06_sorting_algorithms.visual.platform.compare.CompareSettings;
+import hw06_sorting_algorithms.visual.programs.sorting.BarsSceneAdapter;
+import hw06_sorting_algorithms.visual.programs.sorting.HeapTreeSceneAdapter;
 import hw06_sorting_algorithms.visual.scene.Scene;
 
 import java.util.ArrayList;
@@ -26,7 +25,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
 
-public final class SortingProgramBundle implements ProgramBundle<int[], SortPlaybackState>, CompareCapable<int[]> {
+public final class SortingProgramBundle implements ProgramBundle<int[], SortPlaybackState>, CompareCapable<int[]>, ModeCapable {
 
     private static final String SORTING_PREFIX_RU = "Сортировка:";
 
@@ -129,6 +128,16 @@ public final class SortingProgramBundle implements ProgramBundle<int[], SortPlay
         return new CompareReport("Compare — " + programName(), inputLabel(lockedInput), rows);
     }
 
+    @Override
+    public void applyMode(String modeId) {
+        String m = modeId == null ? "" : modeId.trim().toLowerCase();
+        if ("heap-tree".equals(m)) {
+            controller.setVariantFilter(v -> v.id().toLowerCase().contains("heap"));
+        } else {
+            controller.setVariantFilter(null);
+        }
+    }
+
     private static long measureBestNanos(
             AlgorithmVariant<int[]> algorithmVariant,
             int[] input,
@@ -190,5 +199,18 @@ public final class SortingProgramBundle implements ProgramBundle<int[], SortPlay
             int[] workingCopy = Arrays.copyOf(input, input.length);
             sortAlgorithm.sort(workingCopy, PlainIntArrayOps.INSTANCE);
         }
+    }
+
+    @Override
+    public List<ModeDescriptor> modes() {
+        return List.of(
+                new ModeDescriptor("compare", "Compare", true),
+                new ModeDescriptor("heap-tree", "Heap Tree", false)
+        );
+    }
+
+    @Override
+    public Scene<?> sceneForMode(String modeId) {
+        return "heap-tree".equals(modeId) ? new HeapTreeSceneAdapter() : new BarsSceneAdapter();
     }
 }

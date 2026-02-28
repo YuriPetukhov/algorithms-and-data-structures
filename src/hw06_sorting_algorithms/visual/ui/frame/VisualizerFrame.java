@@ -1,19 +1,16 @@
 package hw06_sorting_algorithms.visual.ui.frame;
 
-import hw06_sorting_algorithms.programs.sorting.SortingProgramBundle;
-import hw06_sorting_algorithms.programs.sorting.ui.SortingController;
-import hw06_sorting_algorithms.visual.platform.compare.CompareCapable;
+import hw06_sorting_algorithms.visual.engine.PlaybackEngine;
+import hw06_sorting_algorithms.visual.platform.ModeCapable;
 import hw06_sorting_algorithms.visual.platform.Player;
 import hw06_sorting_algorithms.visual.platform.ProgramBundle;
+import hw06_sorting_algorithms.visual.platform.compare.CompareCapable;
 import hw06_sorting_algorithms.visual.platform.compare.CompareRequest;
-import hw06_sorting_algorithms.visual.programs.sorting.BarsSceneAdapter;
-import hw06_sorting_algorithms.visual.programs.sorting.HeapTreeSceneAdapter;
 import hw06_sorting_algorithms.visual.scene.Scene;
 import hw06_sorting_algorithms.visual.ui.compare.ComparePanel;
 import hw06_sorting_algorithms.visual.ui.compare.CompareRunner;
 import hw06_sorting_algorithms.visual.ui.components.ControlsPanel;
 import hw06_sorting_algorithms.visual.ui.host.ProgramHost;
-import hw06_sorting_algorithms.visual.engine.PlaybackEngine;
 import hw06_sorting_algorithms.visual.ui.status.StatusPresenter;
 
 import javax.swing.*;
@@ -25,21 +22,17 @@ public final class VisualizerFrame extends JFrame implements PlaybackEngine.List
     private final ControlsPanel controls;
     private final JPanel sceneHost = new JPanel(new BorderLayout());
     private final JPanel compareHost = new JPanel(new BorderLayout());
-
     private final ProgramHost host;
     private final StatusPresenter statusPresenter = new StatusPresenter();
     private final PlaybackEngine playback;
-
     private final ComparePanel comparePanel = new ComparePanel();
     private final CompareRunner compareRunner = new CompareRunner();
-
     private Object lockedInput;
     private boolean compareComputed;
-
     private final CardLayout compareCardsLayout = new CardLayout();
     private final JPanel compareCards = new JPanel(compareCardsLayout);
     private JSplitPane split;
-    private boolean heapTreeMode;
+    private String currentModeId = "";
 
     public VisualizerFrame(String title, List<ProgramBundle<?, ?>> programs) {
         super(title);
@@ -59,157 +52,50 @@ public final class VisualizerFrame extends JFrame implements PlaybackEngine.List
         setLocationByPlatform(true);
 
         controls.setListener(new ControlsPanel.Listener() {
-            @Override public void onProgramChanged(ProgramBundle<?, ?> selectedProgram) { switchProgram(selectedProgram); }
-            @Override public void onBuild() { buildPlayer(); }
-            @Override public void onStep() { playback.stepOnce(); }
-            @Override public void onPlay() { playback.play(); }
-            @Override public void onPause() { playback.pause(); refreshFromPlayback(); }
-            @Override public void onReset() { resetWithRebuild(); }
-            @Override public void onSpeedChanged(int speedValue) { playback.updateDelay(); }
-            @Override public void onModeChanged(String mode) { setMode(mode); }
+            @Override
+            public void onProgramChanged(ProgramBundle<?, ?> selectedProgram) {
+                switchProgram(selectedProgram);
+            }
+
+            @Override
+            public void onBuild() {
+                buildPlayer();
+            }
+
+            @Override
+            public void onStep() {
+                playback.stepOnce();
+            }
+
+            @Override
+            public void onPlay() {
+                playback.play();
+            }
+
+            @Override
+            public void onPause() {
+                playback.pause();
+                refreshFromPlayback();
+            }
+
+            @Override
+            public void onReset() {
+                resetWithRebuild();
+            }
+
+            @Override
+            public void onSpeedChanged(int speedValue) {
+                playback.updateDelay();
+            }
+
+            @Override
+            public void onModeChanged(String modeId) {
+                stopAndClearSession();
+                applyMode(modeId);
+            }
         });
 
         switchProgram(programs.get(0));
-    }
-
-    private JComponent buildRoot() {
-        JPanel root = new JPanel(new BorderLayout(12, 12));
-        root.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
-        root.add(controls, BorderLayout.NORTH);
-
-        compareCards.add(comparePanel, "compare");
-        compareCards.add(new JPanel(), "empty");
-        compareHost.add(compareCards, BorderLayout.CENTER);
-
-        compareHost.setMinimumSize(new Dimension(360, 0));
-        compareHost.setPreferredSize(new Dimension(420, 0));
-        compareHost.setMinimumSize(new Dimension(360, 0));
-        compareHost.setPreferredSize(new Dimension(420, 0));
-
-        split = new JSplitPane(
-                JSplitPane.HORIZONTAL_SPLIT,
-                sceneHost,
-                compareHost
-        );
-        split.setResizeWeight(1.0);
-        split.setOneTouchExpandable(true);
-        split.setContinuousLayout(true);
-
-        JPanel center = new JPanel(new BorderLayout());
-        center.add(split, BorderLayout.CENTER);
-        root.add(center, BorderLayout.CENTER);
-
-        SwingUtilities.invokeLater(() -> split.setDividerLocation(0.68));
-
-        return root;
-    }
-
-    private int delayMsFromSpeed() {
-        int stepsPerSecond = Math.max(1, controls.speedValue());
-        return Math.max(1, 1000 / stepsPerSecond);
-    }
-
-    private void refreshFromPlayback() {
-        Player<?> currentPlayer = playback.player();
-        if (currentPlayer == null) {
-            controls.setStatusText(statusPresenter.noPlayer());
-        } else {
-            Object state = currentPlayer.state();
-            setSceneStateRaw(host.scene(), state);
-            controls.setStatusText(statusPresenter.format(currentPlayer, state));
-        }
-        updateButtons();
-    }
-
-    private void switchProgram(ProgramBundle<?, ?> bundle) {
-        if (bundle == null) return;
-
-        playback.stop();
-        playback.setPlayer(null);
-
-        host.mount(bundle);
-
-        lockedInput = null;
-        compareComputed = false;
-        comparePanel.clearResults();
-
-        setTitle(bundle.programName());
-        controls.setStatusText(statusPresenter.noPlayer());
-
-        // применяем текущий режим (сцена + compare + фильтр алгоритмов)
-        setMode(controls.selectedMode());
-
-        updateButtons();
-    }
-
-    private void buildPlayer() {
-        playback.stop();
-
-        try {
-            Object input = host.controller().buildInput();
-            lockedInput = input;
-
-            compareComputed = false;
-            comparePanel.clearResults();
-
-            Player<?> player = buildPlayerRaw(host.bundle(), input);
-            playback.setPlayer(player);
-
-            setTitle(host.bundle().programName());
-            updateButtons();
-
-        } catch (Exception exception) {
-            showErrorDialog("Build error", exception);
-        }
-    }
-
-    private void setMode(String mode) {
-        String m = (mode == null) ? "" : mode.trim().toLowerCase();
-        heapTreeMode = m.contains("heap");
-
-        playback.stop();
-        playback.setPlayer(null);
-        lockedInput = null;
-        compareComputed = false;
-        comparePanel.clearResults();
-        controls.setStatusText(statusPresenter.noPlayer());
-
-        if (heapTreeMode) {
-            host.setScene(new HeapTreeSceneAdapter());
-        } else {
-            host.setScene(new BarsSceneAdapter());
-        }
-
-        if (host.controller() instanceof SortingController ctl) {
-            if (heapTreeMode) {
-                ctl.setVariantFilter(v -> v.id().toLowerCase().contains("heap"));
-            } else {
-                ctl.setVariantFilter(null);
-            }
-        }
-
-        if (heapTreeMode) {
-            compareCardsLayout.show(compareCards, "empty");
-            comparePanel.setVisible(false);
-            comparePanel.setEnabledToggle(false);
-            SwingUtilities.invokeLater(() -> split.setDividerLocation(1.0));
-        } else {
-            compareCardsLayout.show(compareCards, "compare");
-            comparePanel.setEnabledToggle(true);
-
-            ProgramBundle<?, ?> bundle = host.bundle();
-            if (bundle instanceof CompareCapable<?> compareCapableProgram) {
-                comparePanel.setProgram(compareCapableProgram);
-                comparePanel.setVisible(true);
-            } else {
-                comparePanel.clear();
-                comparePanel.setVisible(false);
-            }
-
-            SwingUtilities.invokeLater(() -> split.setDividerLocation(0.68));
-        }
-
-        updateButtons();
     }
 
     @Override
@@ -235,12 +121,176 @@ public final class VisualizerFrame extends JFrame implements PlaybackEngine.List
         maybeCompare();
     }
 
+    private JComponent buildRoot() {
+        JPanel root = new JPanel(new BorderLayout(12, 12));
+        root.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
+        root.add(controls, BorderLayout.NORTH);
+
+        compareCards.add(comparePanel, "compare");
+        compareCards.add(new JPanel(), "empty");
+        compareHost.add(compareCards, BorderLayout.CENTER);
+
+        compareHost.setMinimumSize(new Dimension(360, 0));
+        compareHost.setPreferredSize(new Dimension(420, 0));
+
+        split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, sceneHost, compareHost);
+        split.setResizeWeight(1.0);
+        split.setOneTouchExpandable(true);
+        split.setContinuousLayout(true);
+
+        JPanel center = new JPanel(new BorderLayout());
+        center.add(split, BorderLayout.CENTER);
+        root.add(center, BorderLayout.CENTER);
+
+        SwingUtilities.invokeLater(() -> split.setDividerLocation(0.68));
+        return root;
+    }
+
+    private int delayMsFromSpeed() {
+        int stepsPerSecond = Math.max(1, controls.speedValue());
+        return Math.max(1, 1000 / stepsPerSecond);
+    }
+
+    private void refreshFromPlayback() {
+        Player<?> currentPlayer = playback.player();
+        if (currentPlayer == null) {
+            controls.setStatusText(statusPresenter.noPlayer());
+        } else {
+            Object state = currentPlayer.state();
+            setSceneStateRaw(host.scene(), state);
+            controls.setStatusText(statusPresenter.format(currentPlayer, state));
+        }
+        updateButtons();
+    }
+
+    private void switchProgram(ProgramBundle<?, ?> bundle) {
+        if (bundle == null) return;
+
+        stopAndClearSession();
+        host.mount(bundle);
+
+        setTitle(bundle.programName());
+        controls.setStatusText(statusPresenter.noPlayer());
+
+        if (bundle instanceof ModeCapable mc) {
+            controls.setModes(mc.modes(), mc.defaultModeId());
+            applyMode(controls.selectedModeId());
+        } else {
+            controls.setModes(List.of(), "");
+            currentModeId = "";
+            applyCompareVisibility(bundle, true);
+        }
+
+        updateButtons();
+    }
+
+    private void applyCompareVisibility(ProgramBundle<?, ?> bundle, boolean preferCompareWhenPossible) {
+        boolean compareEnabled = preferCompareWhenPossible && (bundle instanceof CompareCapable<?>);
+
+        if (!compareEnabled) {
+            compareCardsLayout.show(compareCards, "empty");
+            comparePanel.setVisible(false);
+            comparePanel.setEnabledToggle(false);
+            SwingUtilities.invokeLater(() -> split.setDividerLocation(1.0));
+            return;
+        }
+
+        compareCardsLayout.show(compareCards, "compare");
+        comparePanel.setEnabledToggle(true);
+
+        if (bundle instanceof CompareCapable<?> compareCapableProgram) {
+            comparePanel.setProgram(compareCapableProgram);
+            comparePanel.setVisible(true);
+        } else {
+            comparePanel.clear();
+            comparePanel.setVisible(false);
+        }
+
+        SwingUtilities.invokeLater(() -> split.setDividerLocation(0.68));
+    }
+
+    private void buildPlayer() {
+        playback.stop();
+
+        try {
+            Object input = host.controller().buildInput();
+            lockedInput = input;
+
+            compareComputed = false;
+            comparePanel.clearResults();
+
+            Player<?> player = buildPlayerRaw(host.bundle(), input);
+            playback.setPlayer(player);
+
+            setTitle(host.bundle().programName());
+            updateButtons();
+
+        } catch (Exception exception) {
+            showErrorDialog("Build error", exception);
+        }
+    }
+
+    private void applyMode(String modeId) {
+        currentModeId = (modeId == null) ? "" : modeId.trim();
+
+        ProgramBundle<?, ?> bundle = host.bundle();
+
+        if (bundle instanceof ModeCapable mc) {
+            Scene<?> scene = mc.sceneForMode(currentModeId);
+            if (scene != null) host.setScene(scene);
+            mc.applyMode(currentModeId);
+        }
+
+        boolean compareEnabled = isCompareEnabled(bundle, currentModeId);
+        if (!compareEnabled) {
+            compareCardsLayout.show(compareCards, "empty");
+            comparePanel.setVisible(false);
+            comparePanel.setEnabledToggle(false);
+            SwingUtilities.invokeLater(() -> split.setDividerLocation(1.0));
+        } else {
+            compareCardsLayout.show(compareCards, "compare");
+            comparePanel.setEnabledToggle(true);
+
+            if (bundle instanceof CompareCapable<?> compareCapableProgram) {
+                comparePanel.setProgram(compareCapableProgram);
+                comparePanel.setVisible(true);
+            } else {
+                comparePanel.clear();
+                comparePanel.setVisible(false);
+            }
+
+            SwingUtilities.invokeLater(() -> split.setDividerLocation(0.68));
+        }
+
+        updateButtons();
+    }
+
+    private boolean isCompareEnabled(ProgramBundle<?, ?> bundle, String modeId) {
+        if (bundle instanceof ModeCapable mc) {
+            return mc.isCompareEnabled(modeId);
+        }
+        return bundle instanceof CompareCapable<?>;
+    }
+
+    private void stopAndClearSession() {
+        playback.stop();
+        playback.setPlayer(null);
+
+        lockedInput = null;
+        compareComputed = false;
+        comparePanel.clearResults();
+        controls.setStatusText(statusPresenter.noPlayer());
+    }
+
     private void maybeCompare() {
         if (compareComputed) return;
         if (lockedInput == null) return;
         if (!comparePanel.enabled()) return;
-        if (!(host.bundle() instanceof CompareCapable<?> compareCapableProgram)) return;
-        if (heapTreeMode) return;
+
+        ProgramBundle<?, ?> bundle = host.bundle();
+        if (!(bundle instanceof CompareCapable<?> compareCapableProgram)) return;
+
+        if (!isCompareEnabled(bundle, currentModeId)) return;
 
         CompareRequest request;
         try {
@@ -271,7 +321,7 @@ public final class VisualizerFrame extends JFrame implements PlaybackEngine.List
         boolean running = playback.isRunning();
 
         boolean hasPlayer = currentPlayer != null;
-        boolean hasNext   = hasPlayer && currentPlayer.hasNext();
+        boolean hasNext = hasPlayer && currentPlayer.hasNext();
 
         controls.setButtonsEnabled(
                 !running,
@@ -308,7 +358,6 @@ public final class VisualizerFrame extends JFrame implements PlaybackEngine.List
     private void showErrorDialog(String title, Exception exception) {
         String message = exception.getMessage();
         String text = (message == null || message.isBlank()) ? exception.toString() : message;
-
         JOptionPane.showMessageDialog(this, text, title, JOptionPane.ERROR_MESSAGE);
     }
 

@@ -1,14 +1,12 @@
 package hw06_sorting_algorithms.visual.ui.compare;
 
 import hw06_sorting_algorithms.visual.platform.AlgorithmVariant;
-import hw06_sorting_algorithms.visual.platform.compare.CompareCapable;
-import hw06_sorting_algorithms.visual.platform.compare.CompareReport;
-import hw06_sorting_algorithms.visual.platform.compare.CompareRequest;
-import hw06_sorting_algorithms.visual.platform.compare.CompareRow;
-import hw06_sorting_algorithms.visual.platform.compare.CompareSettings;
+import hw06_sorting_algorithms.visual.platform.compare.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -17,11 +15,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public final class ComparePanel extends JPanel {
-
     private final JToggleButton enableToggle = new JToggleButton("Compare");
     private final JTextField warmupRunsField = new JTextField("1", 3);
     private final JTextField measuredRunsField = new JTextField("5", 3);
-
     private final JPanel variantsPanel = new JPanel();
     private final Map<String, JCheckBox> checkboxesByVariantId = new LinkedHashMap<>();
 
@@ -30,12 +26,18 @@ public final class ComparePanel extends JPanel {
             0
     ) {
         @Override public boolean isCellEditable(int row, int column) { return false; }
+
+        @Override public Class<?> getColumnClass(int columnIndex) {
+            return switch (columnIndex) {
+                case 1 -> Double.class;
+                default -> String.class;
+            };
+        }
     };
 
     private final JTable resultsTable = new JTable(resultsTableModel);
 
     private CompareCapable<?> compareProgram;
-
     public ComparePanel() {
         setLayout(new GridBagLayout());
         setBorder(BorderFactory.createTitledBorder("Compare"));
@@ -71,6 +73,21 @@ public final class ComparePanel extends JPanel {
         resultsTable.setFillsViewportHeight(true);
         JScrollPane resultsScrollPane = new JScrollPane(resultsTable);
         resultsScrollPane.setBorder(BorderFactory.createTitledBorder("Results"));
+
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(resultsTableModel);
+        resultsTable.setRowSorter(sorter);
+        resultsTable.getTableHeader().setReorderingAllowed(false);
+
+        resultsTable.getColumnModel().getColumn(1).setCellRenderer(new DefaultTableCellRenderer() {
+            @Override
+            protected void setValue(Object value) {
+                if (value == null) {
+                    setText("-");
+                } else {
+                    setText(String.format("%.3f", (Double) value));
+                }
+            }
+        });
 
         constraints.gridy = 2;
         constraints.weighty = 0.65;
@@ -144,20 +161,29 @@ public final class ComparePanel extends JPanel {
         clearResults();
 
         for (CompareRow row : report.rows()) {
-            String bestMillis = row.bestNanos() < 0
-                    ? "-"
-                    : String.format("%.3f", row.bestNanos() / 1_000_000.0);
-
+            Double bestMs = (row.bestNanos() < 0) ? null : row.bestNanos() / 1_000_000.0;
             String status = row.status() == null ? "" : row.status();
-            resultsTableModel.addRow(new Object[]{row.name(), bestMillis, status});
+
+            resultsTableModel.addRow(new Object[]{row.name(), bestMs, status});
+        }
+
+        TableRowSorter<?> sorter = (TableRowSorter<?>) resultsTable.getRowSorter();
+        if (sorter != null) {
+            sorter.setComparator(1, (Double a, Double b) -> {
+                if (a == null && b == null) return 0;
+                if (a == null) return 1;
+                if (b == null) return -1;
+                return Double.compare(a, b);
+            });
+
+            sorter.setSortKeys(java.util.List.of(new RowSorter.SortKey(1, SortOrder.ASCENDING)));
+            sorter.sort();
         }
 
         String inputLabel = report.inputLabel();
-        if (inputLabel != null && !inputLabel.isBlank()) {
-            setBorder(BorderFactory.createTitledBorder("Compare — " + inputLabel));
-        } else {
-            setBorder(BorderFactory.createTitledBorder("Compare"));
-        }
+        setBorder(BorderFactory.createTitledBorder(
+                (inputLabel != null && !inputLabel.isBlank()) ? "Compare — " + inputLabel : "Compare"
+        ));
     }
 
     private static int parseIntOrDefault(String text, int defaultValue) {
