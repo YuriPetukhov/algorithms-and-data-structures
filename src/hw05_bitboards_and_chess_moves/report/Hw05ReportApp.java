@@ -16,7 +16,7 @@ public class Hw05ReportApp {
                     new DefaultTestConfigProvider(
                             new PropertiesTestConfigProvider(
                                     new PropertiesLoader(),
-                                    "hw02/application.properties"
+                                    "hw05/application.properties"
                             ),
                             new ArgsOverrideProvider()
                     );

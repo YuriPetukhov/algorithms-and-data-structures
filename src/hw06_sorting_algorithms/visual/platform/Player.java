@@ -5,7 +5,6 @@ public interface Player<S> {
     boolean hasNext();
     int position();
     int totalEvents();
-
     S state();
     S step();
 }

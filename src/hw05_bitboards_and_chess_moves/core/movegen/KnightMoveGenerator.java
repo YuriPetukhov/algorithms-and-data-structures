@@ -14,16 +14,16 @@ public final class KnightMoveGenerator implements MoveGenerator {
     public long attacks(int square, long occupancy) {
         long from = 1L << square;
 
-        long n1 = (from & BoardMasks.NOT_FILE_H)  << 17;
-        long n2 = (from & BoardMasks.NOT_FILE_A)  << 15;
-        long n3 = (from & BoardMasks.NOT_FILE_GH) << 10;
-        long n4 = (from & BoardMasks.NOT_FILE_AB) << 6;
+        long l1 = (from & BoardMasks.NOT_FILE_A)  << 15;
+        long l2 = (from & BoardMasks.NOT_FILE_AB) << 6;
+        long r1 = (from & BoardMasks.NOT_FILE_H)  << 17;
+        long r2 = (from & BoardMasks.NOT_FILE_GH) << 10;
 
-        long s1 = (from & BoardMasks.NOT_FILE_H)  >>> 15;
-        long s2 = (from & BoardMasks.NOT_FILE_A)  >>> 17;
-        long s3 = (from & BoardMasks.NOT_FILE_GH) >>> 6;
-        long s4 = (from & BoardMasks.NOT_FILE_AB) >>> 10;
+        long l3 = (from & BoardMasks.NOT_FILE_A)  >>> 17;
+        long l4 = (from & BoardMasks.NOT_FILE_AB) >>> 10;
+        long r3 = (from & BoardMasks.NOT_FILE_H)  >>> 15;
+        long r4 = (from & BoardMasks.NOT_FILE_GH) >>> 6;
 
-        return n1 | n2 | n3 | n4 | s1 | s2 | s3 | s4;
+        return l1 | l2 | r1 | r2 | l3 | l4 | r3 | r4;
     }
 }
