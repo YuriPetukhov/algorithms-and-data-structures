@@ -1,0 +1,39 @@
+External Sorting Benchmark
+
+Timeout per run: 2 minutes
+
+N          T          ES1(ms)         ES2(ms)         ES3(ms)        
+Work dir: tests\hw08\run_1772972147079
+Work dir: tests\hw08\run_1772972147109
+Work dir: tests\hw08\run_1772972147185
+100        10         16              70              9              
+Work dir: tests\hw08\run_1772972147220
+Work dir: tests\hw08\run_1772972147317
+Work dir: tests\hw08\run_1772972147385
+100        100        93              62              4              
+Work dir: tests\hw08\run_1772972147394
+Work dir: tests\hw08\run_1772972147406
+Work dir: tests\hw08\run_1772972147888
+1000       10         8               479             20             
+Work dir: tests\hw08\run_1772972147912
+Work dir: tests\hw08\run_1772972148411
+Work dir: tests\hw08\run_1772972148864
+1000       1000       495             449             19             
+Work dir: tests\hw08\run_1772972148887
+Work dir: tests\hw08\run_1772972148906
+Work dir: tests\hw08\run_1772972155260
+10000      10         14              6350            209            
+Work dir: tests\hw08\run_1772972155473
+Work dir: tests\hw08\run_1772972160010
+Work dir: tests\hw08\run_1772972170572
+10000      10000      4532            10557           241            
+Work dir: tests\hw08\run_1772972170818
+Work dir: tests\hw08\run_1772972290859
+100000     10         20              TIMEOUT         12726          
+Work dir: tests\hw08\run_1772972303592
+Work dir: tests\hw08\run_1772972510410
+100000     100000     86805           TIMEOUT         19869          
+Work dir: tests\hw08\run_1772972530289
+Work dir: tests\hw08\run_1772972170845
+1000000    10         126             TIMEOUT         TIMEOUT        
+1000000    1000000    TIMEOUT         OUT_OF_MEMORY   OUT_OF_MEMORY  

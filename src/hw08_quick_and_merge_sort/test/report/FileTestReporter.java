@@ -1,22 +1,47 @@
-package hw02_dynamic_programming_and_testing.test.report;
+package hw08_quick_and_merge_sort.test.report;
 
 import hw02_dynamic_programming_and_testing.test.model.TestResult;
 import hw02_dynamic_programming_and_testing.test.model.TestStatus;
-import hw08_quick_and_merge_sort.test.report.TestReporter;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
-public class ConsoleTestReporter implements TestReporter {
+public class FileTestReporter implements TestReporter, AutoCloseable {
 
-    private static final String RESET = "\u001B[0m";
-    private static final String GREEN = "\u001B[32m";
-    private static final String RED = "\u001B[31m";
-    private static final String YELLOW = "\u001B[33m";
-    private static final String MAGENTA = "\u001B[35m";
+    private final PrintWriter out;
+
+    public FileTestReporter(Path file) throws IOException {
+        if (file.getParent() != null) {
+            Files.createDirectories(file.getParent());
+        }
+        this.out = new PrintWriter(Files.newBufferedWriter(file));
+    }
+
+    public void printSection(String testDir, String algorithmId, String algorithmName) {
+        out.println();
+        out.println("========================================");
+        out.println("TEST DIR : " + testDir);
+        out.println("ALGORITHM: " + algorithmId);
+        out.println("NAME     : " + algorithmName);
+        out.println("========================================");
+        out.flush();
+    }
+
+    public void println(String line) {
+        out.println(line);
+        out.flush();
+    }
 
     @Override
     public void print(List<TestResult> results) {
-        int passed = 0, timeout = 0, failed = 0, missing = 0, error = 0;
+        int passed = 0;
+        int timeout = 0;
+        int failed = 0;
+        int missing = 0;
+        int error = 0;
 
         for (TestResult r : results) {
             switch (r.status()) {
@@ -30,35 +55,35 @@ public class ConsoleTestReporter implements TestReporter {
             String line = String.format("[%s] %s | %.3f ms",
                     r.status(), r.testName(), r.timeNanos() / 1_000_000.0);
 
-            System.out.println(color(r.status(), line));
+            out.println(line);
 
             if (r.status() == TestStatus.FAILED) {
-                System.out.println("  expected: " + smartPreview(r.expected()));
-                System.out.println("  actual  : " + smartPreview(r.actual()));
+                out.println("  expected: " + smartPreview(r.expected()));
+                out.println("  actual  : " + smartPreview(r.actual()));
             } else if (r.status() == TestStatus.ERROR || r.status() == TestStatus.MISSING_EXPECTED) {
-                System.out.println("  message : " + r.message());
+                out.println("  message : " + r.message());
             } else if (r.status() == TestStatus.TIMEOUT) {
-                System.out.println("  message : " + r.message());
+                out.println("  message : " + r.message());
             }
         }
 
-        System.out.println("--------------------------------");
-        System.out.printf("Total: %d, Passed: %d, Timeout: %d, Failed: %d, Missing: %d, Error: %d%n",
-                results.size(), passed, timeout, failed, missing, error);
+        out.println("--------------------------------");
+        out.printf(
+                "Total: %d, Passed: %d, Timeout: %d, Failed: %d, Missing: %d, Error: %d%n",
+                results.size(), passed, timeout, failed, missing, error
+        );
+        out.flush();
     }
 
     @Override
     public void printFatal(Exception e) {
-        System.err.println("Ошибка: " + e.getMessage());
+        out.println("Ошибка: " + e.getMessage());
+        out.flush();
     }
 
-    private String color(TestStatus status, String s) {
-        return switch (status) {
-            case PASSED -> GREEN + s + RESET;
-            case FAILED, ERROR -> RED + s + RESET;
-            case MISSING_EXPECTED -> YELLOW + s + RESET;
-            case TIMEOUT -> MAGENTA + s + RESET;
-        };
+    @Override
+    public void close() {
+        out.close();
     }
 
     private static String smartPreview(String s) {
@@ -75,7 +100,6 @@ public class ConsoleTestReporter implements TestReporter {
         if (t.isEmpty()) return false;
 
         String[] parts = t.split("\\s+");
-
         if (parts.length < 5) return false;
 
         int check = Math.min(parts.length, 10);
@@ -114,12 +138,15 @@ public class ConsoleTestReporter implements TestReporter {
 
     private static boolean isInteger(String x) {
         if (x == null || x.isEmpty()) return false;
+
         int i = (x.charAt(0) == '-') ? 1 : 0;
         if (i == x.length()) return false;
+
         for (; i < x.length(); i++) {
             char c = x.charAt(i);
             if (c < '0' || c > '9') return false;
         }
+
         return true;
     }
 

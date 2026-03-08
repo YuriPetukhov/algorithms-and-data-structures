@@ -1,0 +1,6 @@
+hw08_quick_and_merge_sort.programs.external_sorting.pipeline.steps.ConfigLoaderStep
+hw08_quick_and_merge_sort.programs.external_sorting.pipeline.steps.ParseInputStep
+hw08_quick_and_merge_sort.programs.external_sorting.pipeline.steps.ValidateRequestStep
+hw08_quick_and_merge_sort.programs.external_sorting.pipeline.steps.BuildParamsStep
+hw08_quick_and_merge_sort.programs.external_sorting.pipeline.steps.RunExternalSortingStep
+hw08_quick_and_merge_sort.programs.external_sorting.pipeline.steps.FormatResultStep

@@ -1,0 +1,830 @@
+
+========================================
+TEST DIR : 0.random
+ALGORITHM: bubble_sort
+NAME     : Сортировка: BubbleSort (naive)
+========================================
+[PASSED] test.0 | 0,174 ms
+[PASSED] test.1 | 0,286 ms
+[PASSED] test.2 | 0,405 ms
+[PASSED] test.3 | 0,929 ms
+[PASSED] test.4 | 51,410 ms
+[TIMEOUT] test.5 | 5000,000 ms
+  message : Timeout
+[TIMEOUT] test.6 | 5000,000 ms
+  message : Timeout
+[TIMEOUT] test.7 | 5000,000 ms
+  message : Timeout
+--------------------------------
+Total: 8, Passed: 5, Timeout: 3, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 0.random
+ALGORITHM: bubble_sort_optimized
+NAME     : Сортировка: BubbleSort (optimized)
+========================================
+[PASSED] test.0 | 0,248 ms
+[PASSED] test.1 | 0,240 ms
+[PASSED] test.2 | 0,379 ms
+[PASSED] test.3 | 1,112 ms
+[PASSED] test.4 | 74,630 ms
+[TIMEOUT] test.5 | 5000,000 ms
+  message : Timeout
+[TIMEOUT] test.6 | 5000,000 ms
+  message : Timeout
+[TIMEOUT] test.7 | 5000,000 ms
+  message : Timeout
+--------------------------------
+Total: 8, Passed: 5, Timeout: 3, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 0.random
+ALGORITHM: insertion_sort
+NAME     : Сортировка: InsertionSort
+========================================
+[PASSED] test.0 | 0,228 ms
+[PASSED] test.1 | 0,221 ms
+[PASSED] test.2 | 0,329 ms
+[PASSED] test.3 | 2,244 ms
+[PASSED] test.4 | 32,583 ms
+[PASSED] test.5 | 3087,627 ms
+[TIMEOUT] test.6 | 5000,000 ms
+  message : Timeout
+[TIMEOUT] test.7 | 5000,000 ms
+  message : Timeout
+--------------------------------
+Total: 8, Passed: 6, Timeout: 2, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 0.random
+ALGORITHM: insertion_sort_binary
+NAME     : Сортировка: InsertionSort (binary)
+========================================
+[PASSED] test.0 | 0,252 ms
+[PASSED] test.1 | 0,212 ms
+[PASSED] test.2 | 0,302 ms
+[PASSED] test.3 | 0,661 ms
+[PASSED] test.4 | 21,035 ms
+[PASSED] test.5 | 1928,080 ms
+[TIMEOUT] test.6 | 5000,000 ms
+  message : Timeout
+[TIMEOUT] test.7 | 5000,000 ms
+  message : Timeout
+--------------------------------
+Total: 8, Passed: 6, Timeout: 2, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 0.random
+ALGORITHM: insertion_sort_shift
+NAME     : Сортировка: InsertionSort (shift)
+========================================
+[PASSED] test.0 | 0,228 ms
+[PASSED] test.1 | 0,213 ms
+[PASSED] test.2 | 0,319 ms
+[PASSED] test.3 | 1,469 ms
+[PASSED] test.4 | 14,497 ms
+[PASSED] test.5 | 1312,112 ms
+[TIMEOUT] test.6 | 5000,000 ms
+  message : Timeout
+[TIMEOUT] test.7 | 5000,000 ms
+  message : Timeout
+--------------------------------
+Total: 8, Passed: 6, Timeout: 2, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 0.random
+ALGORITHM: shell_sort
+NAME     : Сортировка: ShellSort
+========================================
+[PASSED] test.0 | 0,298 ms
+[PASSED] test.1 | 0,206 ms
+[PASSED] test.2 | 0,262 ms
+[PASSED] test.3 | 0,459 ms
+[PASSED] test.4 | 1,916 ms
+[PASSED] test.5 | 18,042 ms
+[PASSED] test.6 | 241,788 ms
+[PASSED] test.7 | 3507,586 ms
+--------------------------------
+Total: 8, Passed: 8, Timeout: 0, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 0.random
+ALGORITHM: shell_sort_knuth
+NAME     : Сортировка: ShellSortKnuth
+========================================
+[PASSED] test.0 | 0,238 ms
+[PASSED] test.1 | 0,220 ms
+[PASSED] test.2 | 0,264 ms
+[PASSED] test.3 | 0,497 ms
+[PASSED] test.4 | 1,356 ms
+[PASSED] test.5 | 10,284 ms
+[PASSED] test.6 | 139,461 ms
+[PASSED] test.7 | 2016,896 ms
+--------------------------------
+Total: 8, Passed: 8, Timeout: 0, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 0.random
+ALGORITHM: shell_sort_ciura
+NAME     : Сортировка: ShellSortCiura
+========================================
+[PASSED] test.0 | 0,244 ms
+[PASSED] test.1 | 0,245 ms
+[PASSED] test.2 | 0,210 ms
+[PASSED] test.3 | 0,780 ms
+[PASSED] test.4 | 1,766 ms
+[PASSED] test.5 | 11,550 ms
+[PASSED] test.6 | 326,955 ms
+[TIMEOUT] test.7 | 5000,000 ms
+  message : Timeout
+--------------------------------
+Total: 8, Passed: 7, Timeout: 1, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 0.random
+ALGORITHM: selection_sort
+NAME     : Сортировка: Selection
+========================================
+[PASSED] test.0 | 0,246 ms
+[PASSED] test.1 | 0,172 ms
+[PASSED] test.2 | 0,313 ms
+[PASSED] test.3 | 1,303 ms
+[PASSED] test.4 | 82,521 ms
+[TIMEOUT] test.5 | 5000,000 ms
+  message : Timeout
+[TIMEOUT] test.6 | 5000,000 ms
+  message : Timeout
+[TIMEOUT] test.7 | 5000,000 ms
+  message : Timeout
+--------------------------------
+Total: 8, Passed: 5, Timeout: 3, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 0.random
+ALGORITHM: heap_sort
+NAME     : Сортировка: Heap
+========================================
+[PASSED] test.0 | 0,239 ms
+[PASSED] test.1 | 0,185 ms
+[PASSED] test.2 | 0,199 ms
+[PASSED] test.3 | 0,385 ms
+[PASSED] test.4 | 2,445 ms
+[PASSED] test.5 | 10,190 ms
+[PASSED] test.6 | 115,624 ms
+[PASSED] test.7 | 1999,733 ms
+--------------------------------
+Total: 8, Passed: 8, Timeout: 0, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 0.random
+ALGORITHM: merge_sort
+NAME     : Сортировка: Merge
+========================================
+[PASSED] test.0 | 0,201 ms
+[PASSED] test.1 | 0,221 ms
+[PASSED] test.2 | 0,210 ms
+[PASSED] test.3 | 0,317 ms
+[PASSED] test.4 | 1,635 ms
+[PASSED] test.5 | 12,749 ms
+[PASSED] test.6 | 129,426 ms
+[PASSED] test.7 | 1504,874 ms
+--------------------------------
+Total: 8, Passed: 8, Timeout: 0, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 0.random
+ALGORITHM: quick_sort
+NAME     : Сортировка: Quick
+========================================
+[PASSED] test.0 | 0,277 ms
+[PASSED] test.1 | 0,189 ms
+[PASSED] test.2 | 0,232 ms
+[PASSED] test.3 | 0,265 ms
+[PASSED] test.4 | 1,372 ms
+[PASSED] test.5 | 6,957 ms
+[PASSED] test.6 | 75,173 ms
+[PASSED] test.7 | 824,397 ms
+--------------------------------
+Total: 8, Passed: 8, Timeout: 0, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 1.digits
+ALGORITHM: bubble_sort
+NAME     : Сортировка: BubbleSort (naive)
+========================================
+[PASSED] test.0 | 0,236 ms
+[PASSED] test.1 | 0,198 ms
+[PASSED] test.2 | 0,191 ms
+[PASSED] test.3 | 0,680 ms
+[PASSED] test.4 | 53,033 ms
+[TIMEOUT] test.5 | 5000,000 ms
+  message : Timeout
+[TIMEOUT] test.6 | 5000,000 ms
+  message : Timeout
+[TIMEOUT] test.7 | 5000,000 ms
+  message : Timeout
+--------------------------------
+Total: 8, Passed: 5, Timeout: 3, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 1.digits
+ALGORITHM: bubble_sort_optimized
+NAME     : Сортировка: BubbleSort (optimized)
+========================================
+[PASSED] test.0 | 0,186 ms
+[PASSED] test.1 | 0,195 ms
+[PASSED] test.2 | 0,203 ms
+[PASSED] test.3 | 1,111 ms
+[PASSED] test.4 | 75,617 ms
+[TIMEOUT] test.5 | 5000,000 ms
+  message : Timeout
+[TIMEOUT] test.6 | 5000,000 ms
+  message : Timeout
+[TIMEOUT] test.7 | 5000,000 ms
+  message : Timeout
+--------------------------------
+Total: 8, Passed: 5, Timeout: 3, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 1.digits
+ALGORITHM: insertion_sort
+NAME     : Сортировка: InsertionSort
+========================================
+[PASSED] test.0 | 0,223 ms
+[PASSED] test.1 | 0,204 ms
+[PASSED] test.2 | 0,181 ms
+[PASSED] test.3 | 0,544 ms
+[PASSED] test.4 | 31,936 ms
+[PASSED] test.5 | 2782,251 ms
+[TIMEOUT] test.6 | 5000,000 ms
+  message : Timeout
+[TIMEOUT] test.7 | 5000,000 ms
+  message : Timeout
+--------------------------------
+Total: 8, Passed: 6, Timeout: 2, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 1.digits
+ALGORITHM: insertion_sort_binary
+NAME     : Сортировка: InsertionSort (binary)
+========================================
+[PASSED] test.0 | 0,208 ms
+[PASSED] test.1 | 0,203 ms
+[PASSED] test.2 | 0,166 ms
+[PASSED] test.3 | 0,495 ms
+[PASSED] test.4 | 21,403 ms
+[PASSED] test.5 | 2117,842 ms
+[TIMEOUT] test.6 | 5000,000 ms
+  message : Timeout
+[TIMEOUT] test.7 | 5000,000 ms
+  message : Timeout
+--------------------------------
+Total: 8, Passed: 6, Timeout: 2, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 1.digits
+ALGORITHM: insertion_sort_shift
+NAME     : Сортировка: InsertionSort (shift)
+========================================
+[PASSED] test.0 | 0,248 ms
+[PASSED] test.1 | 0,216 ms
+[PASSED] test.2 | 0,186 ms
+[PASSED] test.3 | 0,319 ms
+[PASSED] test.4 | 11,988 ms
+[PASSED] test.5 | 1165,987 ms
+[TIMEOUT] test.6 | 5000,000 ms
+  message : Timeout
+[TIMEOUT] test.7 | 5000,000 ms
+  message : Timeout
+--------------------------------
+Total: 8, Passed: 6, Timeout: 2, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 1.digits
+ALGORITHM: shell_sort
+NAME     : Сортировка: ShellSort
+========================================
+[PASSED] test.0 | 0,199 ms
+[PASSED] test.1 | 0,207 ms
+[PASSED] test.2 | 0,202 ms
+[PASSED] test.3 | 0,246 ms
+[PASSED] test.4 | 0,755 ms
+[PASSED] test.5 | 6,060 ms
+[PASSED] test.6 | 66,380 ms
+[PASSED] test.7 | 757,120 ms
+--------------------------------
+Total: 8, Passed: 8, Timeout: 0, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 1.digits
+ALGORITHM: shell_sort_knuth
+NAME     : Сортировка: ShellSortKnuth
+========================================
+[PASSED] test.0 | 0,217 ms
+[PASSED] test.1 | 0,178 ms
+[PASSED] test.2 | 0,174 ms
+[PASSED] test.3 | 0,200 ms
+[PASSED] test.4 | 0,664 ms
+[PASSED] test.5 | 3,630 ms
+[PASSED] test.6 | 37,884 ms
+[PASSED] test.7 | 411,575 ms
+--------------------------------
+Total: 8, Passed: 8, Timeout: 0, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 1.digits
+ALGORITHM: shell_sort_ciura
+NAME     : Сортировка: ShellSortCiura
+========================================
+[PASSED] test.0 | 0,209 ms
+[PASSED] test.1 | 0,176 ms
+[PASSED] test.2 | 0,183 ms
+[PASSED] test.3 | 0,191 ms
+[PASSED] test.4 | 0,581 ms
+[PASSED] test.5 | 5,054 ms
+[PASSED] test.6 | 226,509 ms
+[TIMEOUT] test.7 | 5000,000 ms
+  message : Timeout
+--------------------------------
+Total: 8, Passed: 7, Timeout: 1, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 1.digits
+ALGORITHM: selection_sort
+NAME     : Сортировка: Selection
+========================================
+[PASSED] test.0 | 0,230 ms
+[PASSED] test.1 | 0,176 ms
+[PASSED] test.2 | 0,184 ms
+[PASSED] test.3 | 1,022 ms
+[PASSED] test.4 | 82,105 ms
+[TIMEOUT] test.5 | 5000,000 ms
+  message : Timeout
+[TIMEOUT] test.6 | 5000,000 ms
+  message : Timeout
+[TIMEOUT] test.7 | 5000,000 ms
+  message : Timeout
+--------------------------------
+Total: 8, Passed: 5, Timeout: 3, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 1.digits
+ALGORITHM: heap_sort
+NAME     : Сортировка: Heap
+========================================
+[PASSED] test.0 | 0,183 ms
+[PASSED] test.1 | 0,170 ms
+[PASSED] test.2 | 0,167 ms
+[PASSED] test.3 | 0,227 ms
+[PASSED] test.4 | 0,855 ms
+[PASSED] test.5 | 6,030 ms
+[PASSED] test.6 | 63,417 ms
+[PASSED] test.7 | 686,221 ms
+--------------------------------
+Total: 8, Passed: 8, Timeout: 0, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 1.digits
+ALGORITHM: merge_sort
+NAME     : Сортировка: Merge
+========================================
+[PASSED] test.0 | 0,230 ms
+[PASSED] test.1 | 0,154 ms
+[PASSED] test.2 | 0,169 ms
+[PASSED] test.3 | 0,226 ms
+[PASSED] test.4 | 0,816 ms
+[PASSED] test.5 | 7,794 ms
+[PASSED] test.6 | 86,880 ms
+[PASSED] test.7 | 972,638 ms
+--------------------------------
+Total: 8, Passed: 8, Timeout: 0, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 1.digits
+ALGORITHM: quick_sort
+NAME     : Сортировка: Quick
+========================================
+[PASSED] test.0 | 0,209 ms
+[PASSED] test.1 | 0,182 ms
+[PASSED] test.2 | 0,181 ms
+[PASSED] test.3 | 0,190 ms
+[PASSED] test.4 | 0,440 ms
+[PASSED] test.5 | 3,313 ms
+[PASSED] test.6 | 33,904 ms
+[PASSED] test.7 | 354,456 ms
+--------------------------------
+Total: 8, Passed: 8, Timeout: 0, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 2.sorted
+ALGORITHM: bubble_sort
+NAME     : Сортировка: BubbleSort (naive)
+========================================
+[PASSED] test.0 | 0,202 ms
+[PASSED] test.1 | 0,196 ms
+[PASSED] test.2 | 0,187 ms
+[PASSED] test.3 | 0,439 ms
+[PASSED] test.4 | 29,203 ms
+[PASSED] test.5 | 2874,769 ms
+[TIMEOUT] test.6 | 5000,000 ms
+  message : Timeout
+[TIMEOUT] test.7 | 5000,000 ms
+  message : Timeout
+--------------------------------
+Total: 8, Passed: 6, Timeout: 2, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 2.sorted
+ALGORITHM: bubble_sort_optimized
+NAME     : Сортировка: BubbleSort (optimized)
+========================================
+[PASSED] test.0 | 0,224 ms
+[PASSED] test.1 | 0,165 ms
+[PASSED] test.2 | 0,201 ms
+[PASSED] test.3 | 0,958 ms
+[PASSED] test.4 | 70,188 ms
+[TIMEOUT] test.5 | 5000,000 ms
+  message : Timeout
+[TIMEOUT] test.6 | 5000,000 ms
+  message : Timeout
+[TIMEOUT] test.7 | 5000,000 ms
+  message : Timeout
+--------------------------------
+Total: 8, Passed: 5, Timeout: 3, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 2.sorted
+ALGORITHM: insertion_sort
+NAME     : Сортировка: InsertionSort
+========================================
+[PASSED] test.0 | 0,201 ms
+[PASSED] test.1 | 0,193 ms
+[PASSED] test.2 | 0,192 ms
+[PASSED] test.3 | 0,186 ms
+[PASSED] test.4 | 1,140 ms
+[PASSED] test.5 | 82,093 ms
+[TIMEOUT] test.6 | 5000,000 ms
+  message : Timeout
+[TIMEOUT] test.7 | 5000,000 ms
+  message : Timeout
+--------------------------------
+Total: 8, Passed: 6, Timeout: 2, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 2.sorted
+ALGORITHM: insertion_sort_binary
+NAME     : Сортировка: InsertionSort (binary)
+========================================
+[PASSED] test.0 | 0,244 ms
+[PASSED] test.1 | 0,178 ms
+[PASSED] test.2 | 0,164 ms
+[PASSED] test.3 | 0,158 ms
+[PASSED] test.4 | 0,767 ms
+[PASSED] test.5 | 50,121 ms
+[TIMEOUT] test.6 | 5000,000 ms
+  message : Timeout
+[TIMEOUT] test.7 | 5000,000 ms
+  message : Timeout
+--------------------------------
+Total: 8, Passed: 6, Timeout: 2, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 2.sorted
+ALGORITHM: insertion_sort_shift
+NAME     : Сортировка: InsertionSort (shift)
+========================================
+[PASSED] test.0 | 0,254 ms
+[PASSED] test.1 | 0,168 ms
+[PASSED] test.2 | 0,159 ms
+[PASSED] test.3 | 0,168 ms
+[PASSED] test.4 | 0,546 ms
+[PASSED] test.5 | 35,113 ms
+[PASSED] test.6 | 3478,029 ms
+[TIMEOUT] test.7 | 5000,000 ms
+  message : Timeout
+--------------------------------
+Total: 8, Passed: 7, Timeout: 1, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 2.sorted
+ALGORITHM: shell_sort
+NAME     : Сортировка: ShellSort
+========================================
+[PASSED] test.0 | 0,173 ms
+[PASSED] test.1 | 0,173 ms
+[PASSED] test.2 | 0,169 ms
+[PASSED] test.3 | 0,234 ms
+[PASSED] test.4 | 0,759 ms
+[PASSED] test.5 | 9,844 ms
+[PASSED] test.6 | 143,859 ms
+[PASSED] test.7 | 2178,682 ms
+--------------------------------
+Total: 8, Passed: 8, Timeout: 0, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 2.sorted
+ALGORITHM: shell_sort_knuth
+NAME     : Сортировка: ShellSortKnuth
+========================================
+[PASSED] test.0 | 0,262 ms
+[PASSED] test.1 | 0,159 ms
+[PASSED] test.2 | 0,182 ms
+[PASSED] test.3 | 0,205 ms
+[PASSED] test.4 | 0,629 ms
+[PASSED] test.5 | 6,839 ms
+[PASSED] test.6 | 92,986 ms
+[PASSED] test.7 | 1272,420 ms
+--------------------------------
+Total: 8, Passed: 8, Timeout: 0, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 2.sorted
+ALGORITHM: shell_sort_ciura
+NAME     : Сортировка: ShellSortCiura
+========================================
+[PASSED] test.0 | 0,299 ms
+[PASSED] test.1 | 0,177 ms
+[PASSED] test.2 | 0,164 ms
+[PASSED] test.3 | 0,214 ms
+[PASSED] test.4 | 0,674 ms
+[PASSED] test.5 | 7,509 ms
+[PASSED] test.6 | 87,050 ms
+[PASSED] test.7 | 2431,164 ms
+--------------------------------
+Total: 8, Passed: 8, Timeout: 0, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 2.sorted
+ALGORITHM: selection_sort
+NAME     : Сортировка: Selection
+========================================
+[PASSED] test.0 | 0,221 ms
+[PASSED] test.1 | 0,169 ms
+[PASSED] test.2 | 0,179 ms
+[PASSED] test.3 | 1,163 ms
+[PASSED] test.4 | 83,312 ms
+[TIMEOUT] test.5 | 5000,000 ms
+  message : Timeout
+[TIMEOUT] test.6 | 5000,000 ms
+  message : Timeout
+[TIMEOUT] test.7 | 5000,000 ms
+  message : Timeout
+--------------------------------
+Total: 8, Passed: 5, Timeout: 3, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 2.sorted
+ALGORITHM: heap_sort
+NAME     : Сортировка: Heap
+========================================
+[PASSED] test.0 | 0,295 ms
+[PASSED] test.1 | 0,183 ms
+[PASSED] test.2 | 0,170 ms
+[PASSED] test.3 | 0,221 ms
+[PASSED] test.4 | 0,934 ms
+[PASSED] test.5 | 6,736 ms
+[PASSED] test.6 | 73,989 ms
+[PASSED] test.7 | 767,588 ms
+--------------------------------
+Total: 8, Passed: 8, Timeout: 0, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 2.sorted
+ALGORITHM: merge_sort
+NAME     : Сортировка: Merge
+========================================
+[PASSED] test.0 | 0,213 ms
+[PASSED] test.1 | 0,174 ms
+[PASSED] test.2 | 0,166 ms
+[PASSED] test.3 | 0,225 ms
+[PASSED] test.4 | 0,540 ms
+[PASSED] test.5 | 5,202 ms
+[PASSED] test.6 | 61,008 ms
+[PASSED] test.7 | 718,367 ms
+--------------------------------
+Total: 8, Passed: 8, Timeout: 0, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 2.sorted
+ALGORITHM: quick_sort
+NAME     : Сортировка: Quick
+========================================
+[PASSED] test.0 | 0,255 ms
+[PASSED] test.1 | 0,176 ms
+[PASSED] test.2 | 0,187 ms
+[PASSED] test.3 | 0,198 ms
+[PASSED] test.4 | 0,378 ms
+[PASSED] test.5 | 1,744 ms
+[PASSED] test.6 | 18,097 ms
+[PASSED] test.7 | 190,239 ms
+--------------------------------
+Total: 8, Passed: 8, Timeout: 0, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 3.revers
+ALGORITHM: bubble_sort
+NAME     : Сортировка: BubbleSort (naive)
+========================================
+[PASSED] test.0 | 0,240 ms
+[PASSED] test.1 | 0,223 ms
+[PASSED] test.2 | 0,209 ms
+[PASSED] test.3 | 0,865 ms
+[PASSED] test.4 | 66,715 ms
+[TIMEOUT] test.5 | 5000,000 ms
+  message : Timeout
+[TIMEOUT] test.6 | 5000,000 ms
+  message : Timeout
+[TIMEOUT] test.7 | 5000,000 ms
+  message : Timeout
+--------------------------------
+Total: 8, Passed: 5, Timeout: 3, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 3.revers
+ALGORITHM: bubble_sort_optimized
+NAME     : Сортировка: BubbleSort (optimized)
+========================================
+[PASSED] test.0 | 0,214 ms
+[PASSED] test.1 | 0,189 ms
+[PASSED] test.2 | 0,208 ms
+[PASSED] test.3 | 1,105 ms
+[PASSED] test.4 | 84,640 ms
+[TIMEOUT] test.5 | 5000,000 ms
+  message : Timeout
+[TIMEOUT] test.6 | 5000,000 ms
+  message : Timeout
+[TIMEOUT] test.7 | 5000,000 ms
+  message : Timeout
+--------------------------------
+Total: 8, Passed: 5, Timeout: 3, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 3.revers
+ALGORITHM: insertion_sort
+NAME     : Сортировка: InsertionSort
+========================================
+[PASSED] test.0 | 0,232 ms
+[PASSED] test.1 | 0,175 ms
+[PASSED] test.2 | 0,209 ms
+[PASSED] test.3 | 0,927 ms
+[PASSED] test.4 | 67,294 ms
+[TIMEOUT] test.5 | 5000,000 ms
+  message : Timeout
+[TIMEOUT] test.6 | 5000,000 ms
+  message : Timeout
+[TIMEOUT] test.7 | 5000,000 ms
+  message : Timeout
+--------------------------------
+Total: 8, Passed: 5, Timeout: 3, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 3.revers
+ALGORITHM: insertion_sort_binary
+NAME     : Сортировка: InsertionSort (binary)
+========================================
+[PASSED] test.0 | 0,256 ms
+[PASSED] test.1 | 0,174 ms
+[PASSED] test.2 | 0,194 ms
+[PASSED] test.3 | 0,560 ms
+[PASSED] test.4 | 38,570 ms
+[PASSED] test.5 | 3880,438 ms
+[TIMEOUT] test.6 | 5000,000 ms
+  message : Timeout
+[TIMEOUT] test.7 | 5000,000 ms
+  message : Timeout
+--------------------------------
+Total: 8, Passed: 6, Timeout: 2, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 3.revers
+ALGORITHM: insertion_sort_shift
+NAME     : Сортировка: InsertionSort (shift)
+========================================
+[PASSED] test.0 | 0,253 ms
+[PASSED] test.1 | 0,194 ms
+[PASSED] test.2 | 0,165 ms
+[PASSED] test.3 | 0,430 ms
+[PASSED] test.4 | 25,743 ms
+[PASSED] test.5 | 2621,788 ms
+[TIMEOUT] test.6 | 5000,000 ms
+  message : Timeout
+[TIMEOUT] test.7 | 5000,000 ms
+  message : Timeout
+--------------------------------
+Total: 8, Passed: 6, Timeout: 2, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 3.revers
+ALGORITHM: shell_sort
+NAME     : Сортировка: ShellSort
+========================================
+[PASSED] test.0 | 0,338 ms
+[PASSED] test.1 | 0,215 ms
+[PASSED] test.2 | 0,163 ms
+[PASSED] test.3 | 0,185 ms
+[PASSED] test.4 | 0,510 ms
+[PASSED] test.5 | 4,773 ms
+[PASSED] test.6 | 53,609 ms
+[PASSED] test.7 | 645,493 ms
+--------------------------------
+Total: 8, Passed: 8, Timeout: 0, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 3.revers
+ALGORITHM: shell_sort_knuth
+NAME     : Сортировка: ShellSortKnuth
+========================================
+[PASSED] test.0 | 0,254 ms
+[PASSED] test.1 | 0,168 ms
+[PASSED] test.2 | 0,151 ms
+[PASSED] test.3 | 0,188 ms
+[PASSED] test.4 | 0,328 ms
+[PASSED] test.5 | 2,143 ms
+[PASSED] test.6 | 23,317 ms
+[PASSED] test.7 | 281,520 ms
+--------------------------------
+Total: 8, Passed: 8, Timeout: 0, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 3.revers
+ALGORITHM: shell_sort_ciura
+NAME     : Сортировка: ShellSortCiura
+========================================
+[PASSED] test.0 | 0,261 ms
+[PASSED] test.1 | 0,181 ms
+[PASSED] test.2 | 0,160 ms
+[PASSED] test.3 | 0,180 ms
+[PASSED] test.4 | 0,400 ms
+[PASSED] test.5 | 6,622 ms
+[PASSED] test.6 | 466,014 ms
+[TIMEOUT] test.7 | 5000,000 ms
+  message : Timeout
+--------------------------------
+Total: 8, Passed: 7, Timeout: 1, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 3.revers
+ALGORITHM: selection_sort
+NAME     : Сортировка: Selection
+========================================
+[PASSED] test.0 | 0,200 ms
+[PASSED] test.1 | 0,193 ms
+[PASSED] test.2 | 0,201 ms
+[PASSED] test.3 | 1,151 ms
+[PASSED] test.4 | 89,933 ms
+[TIMEOUT] test.5 | 5000,000 ms
+  message : Timeout
+[TIMEOUT] test.6 | 5000,000 ms
+  message : Timeout
+[TIMEOUT] test.7 | 5000,000 ms
+  message : Timeout
+--------------------------------
+Total: 8, Passed: 5, Timeout: 3, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 3.revers
+ALGORITHM: heap_sort
+NAME     : Сортировка: Heap
+========================================
+[PASSED] test.0 | 0,229 ms
+[PASSED] test.1 | 0,196 ms
+[PASSED] test.2 | 0,159 ms
+[PASSED] test.3 | 0,213 ms
+[PASSED] test.4 | 0,771 ms
+[PASSED] test.5 | 6,123 ms
+[PASSED] test.6 | 64,988 ms
+[PASSED] test.7 | 742,782 ms
+--------------------------------
+Total: 8, Passed: 8, Timeout: 0, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 3.revers
+ALGORITHM: merge_sort
+NAME     : Сортировка: Merge
+========================================
+[PASSED] test.0 | 0,272 ms
+[PASSED] test.1 | 0,178 ms
+[PASSED] test.2 | 0,179 ms
+[PASSED] test.3 | 0,205 ms
+[PASSED] test.4 | 0,649 ms
+[PASSED] test.5 | 5,545 ms
+[PASSED] test.6 | 61,004 ms
+[PASSED] test.7 | 696,032 ms
+--------------------------------
+Total: 8, Passed: 8, Timeout: 0, Failed: 0, Missing: 0, Error: 0
+
+========================================
+TEST DIR : 3.revers
+ALGORITHM: quick_sort
+NAME     : Сортировка: Quick
+========================================
+[PASSED] test.0 | 0,210 ms
+[PASSED] test.1 | 0,186 ms
+[PASSED] test.2 | 0,209 ms
+[PASSED] test.3 | 0,200 ms
+[PASSED] test.4 | 0,406 ms
+[PASSED] test.5 | 2,010 ms
+[PASSED] test.6 | 17,475 ms
+[PASSED] test.7 | 181,185 ms
+--------------------------------
+Total: 8, Passed: 8, Timeout: 0, Failed: 0, Missing: 0, Error: 0

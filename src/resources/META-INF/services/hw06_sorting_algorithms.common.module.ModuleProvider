@@ -1,1 +1,2 @@
 hw06_sorting_algorithms.programs.sorting.registry.SortingTaskProvider
+hw08_quick_and_merge_sort.programs.external_sorting.registry.ExternalSortingTaskProvider
