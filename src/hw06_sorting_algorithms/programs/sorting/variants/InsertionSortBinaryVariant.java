@@ -9,7 +9,7 @@ public final class InsertionSortBinaryVariant implements SortingVariant {
 
     @Override public String id() { return "insertion_sort_binary"; }
 
-    @Override public String displayName() { return "Сортировка: InsertionSort (binary)"; }
+    @Override public String displayName() { return "Сортировка: InsertionSort (distribution)"; }
 
     @Override public SortAlgorithm build(SortingParams params) { return new InsertionSortBinaryAlgorithm(); }
 }

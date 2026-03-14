@@ -47,7 +47,7 @@ public final class SortingProgramBundle implements ProgramBundle<int[], SortPlay
 
     @Override
     public String id() {
-        return "sorting";
+        return "programs";
     }
 
     @Override

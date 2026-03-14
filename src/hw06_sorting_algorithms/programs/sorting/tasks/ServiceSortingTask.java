@@ -23,7 +23,7 @@ public final class ServiceSortingTask implements MeasurableTask<int[], int[]> {
         }
 
         SortingVariant sortingVariant = VARIANT_REGISTRY.find(variantId)
-                .orElseThrow(() -> new IllegalArgumentException("Unknown sorting variant id: " + variantId));
+                .orElseThrow(() -> new IllegalArgumentException("Unknown programs variant id: " + variantId));
 
         this.variantId = sortingVariant.id();
         this.variantDisplayName = sortingVariant.displayName();

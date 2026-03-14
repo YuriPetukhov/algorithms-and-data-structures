@@ -46,7 +46,7 @@ public class ConfigLoaderStep implements ExternalSortingStep {
 
         } catch (Exception e) {
             throw new RuntimeException(
-                    "Failed to load external sorting configuration",
+                    "Failed to load external programs configuration",
                     e
             );
         }

@@ -1,0 +1,49 @@
+========================================
+N = 1000
+CountingSort: 12 ms | sorted = true
+RadixSort:    3 ms | sorted = true
+BucketSort:   2 ms | sorted = true
+========================================
+N = 10000
+CountingSort: 2 ms | sorted = true
+RadixSort:    11 ms | sorted = true
+BucketSort:   5 ms | sorted = true
+========================================
+N = 100000
+CountingSort: 11 ms | sorted = true
+RadixSort:    27 ms | sorted = true
+BucketSort:   10 ms | sorted = true
+========================================
+N = 1000000
+CountingSort: 77 ms | sorted = true
+RadixSort:    186 ms | sorted = true
+BucketSort:   47 ms | sorted = true
+========================================
+N = 10000000
+CountingSort: 431 ms | sorted = true
+RadixSort:    957 ms | sorted = true
+BucketSort:   309 ms | sorted = true
+========================================
+N = 1000000000
+CountingSort: 30909 ms | sorted = true
+RadixSort:    187648 ms | sorted = true
+BucketSort:   29625 ms | sorted = true
+
+============== RESULTS TABLE ==============
+           N |    CountingSort |       RadixSort |      BucketSort
+---------------------------------------------------------------------
+        1000 |           12 ms |            3 ms |            2 ms
+       10000 |            2 ms |           11 ms |            5 ms
+      100000 |           11 ms |           27 ms |           10 ms
+     1000000 |           77 ms |          186 ms |           47 ms
+    10000000 |          431 ms |          957 ms |          309 ms
+  1000000000 |        30909 ms |       187648 ms |        29625 ms
+===========================================
+
+Correctness:
+N=1000 -> Counting=true, Radix=true, Bucket=true
+N=10000 -> Counting=true, Radix=true, Bucket=true
+N=100000 -> Counting=true, Radix=true, Bucket=true
+N=1000000 -> Counting=true, Radix=true, Bucket=true
+N=10000000 -> Counting=true, Radix=true, Bucket=true
+N=1000000000 -> Counting=true, Radix=true, Bucket=true

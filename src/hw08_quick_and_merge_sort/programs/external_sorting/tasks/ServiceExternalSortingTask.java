@@ -25,7 +25,7 @@ public final class ServiceExternalSortingTask
 
     @Override
     public String displayName() {
-        return "External sorting: " + variantId;
+        return "External programs: " + variantId;
     }
 
     @Override

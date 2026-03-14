@@ -17,11 +17,11 @@ public final class SortingVariantRegistry {
             String normalizedId = normalize(sortingVariant.id());
 
             if (normalizedId.isEmpty()) {
-                throw new IllegalStateException("Blank sorting variant id");
+                throw new IllegalStateException("Blank programs variant id");
             }
 
             if (variantsById.containsKey(normalizedId)) {
-                throw new IllegalStateException("Duplicate sorting variant id: " + normalizedId);
+                throw new IllegalStateException("Duplicate programs variant id: " + normalizedId);
             }
 
             variantsById.put(normalizedId, sortingVariant);

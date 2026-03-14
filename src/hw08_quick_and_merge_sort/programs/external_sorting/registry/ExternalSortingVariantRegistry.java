@@ -19,11 +19,11 @@ public final class ExternalSortingVariantRegistry {
             String id = normalize(variant.id());
 
             if (id.isEmpty()) {
-                throw new IllegalStateException("Blank external sorting variant id");
+                throw new IllegalStateException("Blank external programs variant id");
             }
 
             if (variantsById.containsKey(id)) {
-                throw new IllegalStateException("Duplicate external sorting variant id: " + id);
+                throw new IllegalStateException("Duplicate external programs variant id: " + id);
             }
 
             variantsById.put(id, variant);

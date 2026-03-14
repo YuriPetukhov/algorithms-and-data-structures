@@ -37,7 +37,7 @@ public class RunExternalSortingStep implements ExternalSortingStep {
             context.setRunResult(run);
 
         } catch (Exception e) {
-            throw new RuntimeException("External sorting execution failed", e);
+            throw new RuntimeException("External programs execution failed", e);
         }
     }
 }

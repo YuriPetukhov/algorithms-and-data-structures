@@ -142,6 +142,18 @@ public final class VisualizerFrame extends JFrame implements PlaybackEngine.List
             compareComputed = false;
             compareSidebar.panel().clearResults();
 
+            ProgramBundle<?, ?> bundle = host.bundle();
+
+            Scene<?> scene;
+            if (bundle instanceof ModeCapable mc) {
+                scene = mc.sceneForMode(currentModeId);
+            } else {
+                scene = bundle.scene();
+            }
+
+            if (scene != null) {
+                host.setScene(scene);
+            }
             Player<?> player = buildPlayerRaw(host.bundle(), input);
             playback.setPlayer(player);
 
@@ -159,9 +171,9 @@ public final class VisualizerFrame extends JFrame implements PlaybackEngine.List
         ProgramBundle<?, ?> bundle = host.bundle();
 
         if (bundle instanceof ModeCapable mc) {
+            mc.applyMode(currentModeId);
             Scene<?> scene = mc.sceneForMode(currentModeId);
             if (scene != null) host.setScene(scene);
-            mc.applyMode(currentModeId);
         }
 
         updateCompareSidebar(bundle);
@@ -248,7 +260,20 @@ public final class VisualizerFrame extends JFrame implements PlaybackEngine.List
         }
 
         try {
-            Player<?> player = buildPlayerRaw(host.bundle(), lockedInput);
+            ProgramBundle<?, ?> bundle = host.bundle();
+
+            Scene<?> scene;
+            if (bundle instanceof ModeCapable mc) {
+                scene = mc.sceneForMode(currentModeId);
+            } else {
+                scene = bundle.scene();
+            }
+
+            if (scene != null) {
+                host.setScene(scene);
+            }
+
+            Player<?> player = buildPlayerRaw(bundle, lockedInput);
             playback.setPlayer(player);
 
             compareComputed = false;

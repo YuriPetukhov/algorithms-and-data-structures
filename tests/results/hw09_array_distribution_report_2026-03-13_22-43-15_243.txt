@@ -1,0 +1,16 @@
+============== ARRAY DISTRIBUTION SORTING REPORT ==============
+           N |    CountingSort |       RadixSort |      BucketSort
+---------------------------------------------------------------------
+         100 |            0 ms |            0 ms |            0 ms
+        1000 |            0 ms |            0 ms |            0 ms
+       10000 |            0 ms |            0 ms |            3 ms
+      100000 |            0 ms |            1 ms |           41 ms
+     1000000 |            1 ms |           10 ms |           68 ms
+=====================================================================
+
+Correctness:
+N=100 -> Counting=true, Radix=true, Bucket=true
+N=1000 -> Counting=true, Radix=true, Bucket=true
+N=10000 -> Counting=true, Radix=true, Bucket=true
+N=100000 -> Counting=true, Radix=true, Bucket=true
+N=1000000 -> Counting=true, Radix=true, Bucket=true

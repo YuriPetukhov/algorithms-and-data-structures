@@ -41,7 +41,7 @@ public class AllSortingTestApp {
 
                 ModuleRegistry moduleRegistry = new ModuleRegistry();
 
-                ModuleProvider sortingProvider = moduleRegistry.find("sorting")
+                ModuleProvider sortingProvider = moduleRegistry.find("programs")
                         .orElseThrow();
 
                 for (Path testDir : testDirs) {
@@ -64,7 +64,7 @@ public class AllSortingTestApp {
                         );
 
                         String[] overrideArgs = {
-                                "--type", "sorting",
+                                "--type", "programs",
                                 "--task", variant.id(),
                                 "--dir", testDir.toString()
                         };

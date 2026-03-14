@@ -1,0 +1,19 @@
+
+============== RESULTS TABLE ==============
+           N |    CountingSort |       RadixSort |      BucketSort
+---------------------------------------------------------------------
+        1000 |           12 ms |            2 ms |            4 ms
+       10000 |            9 ms |           11 ms |            2 ms
+      100000 |           13 ms |           52 ms |            8 ms
+     1000000 |           66 ms |          210 ms |           48 ms
+    10000000 |          415 ms |          830 ms |          278 ms
+  1000000000 |        29401 ms |        94845 ms |        84891 ms
+===========================================
+
+Correctness:
+N=1000 -> Counting=true, Radix=true, Bucket=true
+N=10000 -> Counting=true, Radix=true, Bucket=true
+N=100000 -> Counting=true, Radix=true, Bucket=true
+N=1000000 -> Counting=true, Radix=true, Bucket=true
+N=10000000 -> Counting=true, Radix=true, Bucket=true
+N=1000000000 -> Counting=true, Radix=true, Bucket=true

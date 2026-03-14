@@ -40,7 +40,7 @@ public final class SortingController implements ProgramController<int[]> {
 
     public SortingController() {
         this.sortingVariants = new SortingVariantRegistry().list();
-        if (sortingVariants.isEmpty()) throw new IllegalStateException("No sorting variants found");
+        if (sortingVariants.isEmpty()) throw new IllegalStateException("No programs variants found");
 
         this.algorithmComboBox = new JComboBox<>(sortingVariants.toArray(new SortingVariant[0]));
 

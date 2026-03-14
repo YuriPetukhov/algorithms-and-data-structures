@@ -2,7 +2,7 @@ package hw06_sorting_algorithms.programs.sorting.player;
 
 import hw06_sorting_algorithms.visual.ui.status.UiState;
 
-public record SortPlaybackState(
+public record SortPlaybackState (
         int[] array,
         Integer highlightIndexA,
         Integer highlightIndexB,
