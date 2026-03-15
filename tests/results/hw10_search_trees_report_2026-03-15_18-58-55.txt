@@ -1,0 +1,12 @@
+
+==================== SEARCH TREES BENCHMARK REPORT ====================
+              Tree |   InputOrder |          N |       Insert |       Search |       Remove |       Hits
+-----------------------------------------------------------------------------------------------
+  BinarySearchTree |       random |      20000 |         5 ms |         0 ms |         0 ms |       2000
+  BinarySearchTree |       sorted |      20000 |       661 ms |        44 ms |        57 ms |       2000
+           AvlTree |       random |      20000 |         8 ms |         0 ms |         2 ms |       2000
+           AvlTree |       sorted |      20000 |         7 ms |         1 ms |         1 ms |       2000
+             Treap |       random |      20000 |        10 ms |         1 ms |         1 ms |       2000
+             Treap |       sorted |      20000 |         2 ms |         0 ms |         0 ms |       2000
+===============================================================================================
+
