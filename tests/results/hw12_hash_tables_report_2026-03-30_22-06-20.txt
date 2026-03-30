@@ -1,0 +1,17 @@
+=== Hash Tables Benchmark ===
+
+Algorithm: Separate chaining
+  Insert: 5,256 ms
+  Search: 1,104 ms
+  Remove: 1,049 ms
+
+Algorithm: Open addressing (linear probing)
+  Insert: 2,084 ms
+  Search: 0,620 ms
+  Remove: 1,328 ms
+
+Algorithm: Open addressing (quadratic probing)
+  Insert: 4,260 ms
+  Search: 0,662 ms
+  Remove: 3,850 ms
+

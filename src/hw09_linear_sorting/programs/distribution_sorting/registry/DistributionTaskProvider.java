@@ -14,7 +14,7 @@ public final class DistributionTaskProvider implements ModuleProvider {
 
     @Override
     public String type() {
-        return "programs";
+        return "distribution_sorting_task";
     }
 
     @Override

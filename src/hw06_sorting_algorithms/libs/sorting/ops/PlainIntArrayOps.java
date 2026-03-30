@@ -21,4 +21,5 @@ public final class PlainIntArrayOps implements IntArrayOps {
     public void write(int[] a, int i, int value) {
         a[i] = value;
     }
+
 }

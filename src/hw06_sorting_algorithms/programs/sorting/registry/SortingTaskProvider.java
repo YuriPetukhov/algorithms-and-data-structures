@@ -14,7 +14,7 @@ public final class SortingTaskProvider implements ModuleProvider {
 
     @Override
     public String type() {
-        return "programs";
+        return "sorting";
     }
 
     @Override

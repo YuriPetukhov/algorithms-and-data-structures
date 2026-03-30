@@ -1,5 +1,6 @@
 hw06_sorting_algorithms.programs.sorting.variants.BubbleSortVariant
 hw06_sorting_algorithms.programs.sorting.variants.BubbleSortOptimizedVariant
+hw06_sorting_algorithms.programs.sorting.variants.BubbleSortMovingMaxVariant
 hw06_sorting_algorithms.programs.sorting.variants.InsertionSortVariant
 hw06_sorting_algorithms.programs.sorting.variants.InsertionSortBinaryVariant
 hw06_sorting_algorithms.programs.sorting.variants.InsertionSortShiftVariant

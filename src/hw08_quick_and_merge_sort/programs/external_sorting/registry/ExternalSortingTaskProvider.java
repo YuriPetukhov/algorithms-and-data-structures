@@ -15,7 +15,7 @@ public final class ExternalSortingTaskProvider implements ModuleProvider {
 
     @Override
     public String type() {
-        return "external_sorting";
+        return "external_sorting_task";
     }
 
     @Override

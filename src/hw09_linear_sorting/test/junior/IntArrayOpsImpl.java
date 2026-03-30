@@ -25,4 +25,5 @@ public final class IntArrayOpsImpl implements IntArrayOps {
     public void write(int[] a, int i, int value) {
         a[i] = value;
     }
+
 }

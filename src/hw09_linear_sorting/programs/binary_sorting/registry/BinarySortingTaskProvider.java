@@ -15,7 +15,7 @@ public final class BinarySortingTaskProvider implements ModuleProvider {
 
     @Override
     public String type() {
-        return "binary_sorting";
+        return "binary_sorting_task";
     }
 
     @Override
