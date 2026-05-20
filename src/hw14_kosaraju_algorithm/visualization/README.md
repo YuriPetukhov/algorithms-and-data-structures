@@ -1,5 +1,3 @@
-```mermaid
-
 ### Двудольный граф A(3,4)
 
 Левая доля: A = {A0, A1, A2}  
@@ -7,7 +5,7 @@
 
 Рёбра:  
 A0-B0, A0-B1, A1-B1, A1-B2, A2-B3
-
+```mermaid
 flowchart LR
     subgraph A["A"]
         direction TB
