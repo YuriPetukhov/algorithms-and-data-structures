@@ -47,6 +47,6 @@ public class BadCharacterSearch implements SubstringSearch {
 
     @Override
     public String name() {
-        return "Suffix shift";
+        return "Bad character";
     }
 }
