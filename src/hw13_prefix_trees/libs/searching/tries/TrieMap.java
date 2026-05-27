@@ -14,8 +14,8 @@ public class TrieMap<V> implements TrieMapInterface<V> {
     public void put(String key, V value) {
         TrieNode<V> current = root;
 
-        for (char c : key.toCharArray()) {
-            current = current.ensureChild(c);
+        for (int i = 0; i < key.length(); i++) {
+            current = current.ensureChild(key.charAt(i));
         }
 
         if (!current.isTerminal()) {
@@ -45,13 +45,13 @@ public class TrieMap<V> implements TrieMapInterface<V> {
 
     @Override
     public boolean remove(String key) {
-        if (!containsKey(key)) {
-            return false;
+        RemoveResult result = remove(root, key, 0);
+
+        if (result.removed()) {
+            size--;
         }
 
-        remove(root, key, 0);
-        size--;
-        return true;
+        return result.removed();
     }
 
     @Override
@@ -62,8 +62,8 @@ public class TrieMap<V> implements TrieMapInterface<V> {
     private TrieNode<V> findNode(String s) {
         TrieNode<V> current = root;
 
-        for (char c : s.toCharArray()) {
-            current = current.child(c);
+        for (int i = 0; i < s.length(); i++) {
+            current = current.child(s.charAt(i));
 
             if (current == null) {
                 return null;
@@ -73,22 +73,42 @@ public class TrieMap<V> implements TrieMapInterface<V> {
         return current;
     }
 
-    private boolean remove(TrieNode<V> node, String key, int depth) {
+    private RemoveResult remove(TrieNode<V> node, String key, int depth) {
+        if (node == null) {
+            return new RemoveResult(false, false);
+        }
+
         if (depth == key.length()) {
+            if (!node.isTerminal()) {
+                return new RemoveResult(false, false);
+            }
+
             node.setTerminal(false);
             node.setValue(null);
-            return node.hasNoChildren();
+
+            return new RemoveResult(true, node.hasNoChildren());
         }
 
         char c = key.charAt(depth);
         TrieNode<V> child = node.child(c);
 
-        boolean deleteChild = remove(child, key, depth + 1);
+        RemoveResult result = remove(child, key, depth + 1);
 
-        if (deleteChild) {
+        if (result.deleteCurrentNode()) {
             node.removeChild(c);
         }
 
-        return !node.isTerminal() && node.hasNoChildren();
+        boolean deleteCurrentNode =
+                result.removed()
+                        && !node.isTerminal()
+                        && node.hasNoChildren();
+
+        return new RemoveResult(result.removed(), deleteCurrentNode);
+    }
+
+    private record RemoveResult(
+            boolean removed,
+            boolean deleteCurrentNode
+    ) {
     }
 }
