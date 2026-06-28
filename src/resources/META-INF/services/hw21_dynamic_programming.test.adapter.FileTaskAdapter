@@ -1,0 +1,8 @@
+hw21_dynamic_programming.test.adapter.tasks.fractionsum.FractionSumFileTaskAdapter
+hw21_dynamic_programming.test.adapter.tasks.christmastree.ChristmasTreeFileTaskAdapter
+hw21_dynamic_programming.test.adapter.tasks.fiveeight.FiveEightFileTaskAdapter
+hw21_dynamic_programming.test.adapter.tasks.islandcount.IslandCountFileTaskAdapter
+hw21_dynamic_programming.test.adapter.tasks.smallbarn.SmallBarnFileTaskAdapter
+hw21_dynamic_programming.test.adapter.tasks.freeheight.FreeHeightFileTaskAdapter
+hw21_dynamic_programming.test.adapter.tasks.widthbounds.WidthBoundsFileTaskAdapter
+hw21_dynamic_programming.test.adapter.tasks.bigbarn.BigBarnFileTaskAdapter
