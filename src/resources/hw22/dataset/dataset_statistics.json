@@ -1,0 +1,62 @@
+{
+  "seed": 2204,
+  "language": "de",
+  "synthetic": true,
+  "base_documents": 300,
+  "splits": {
+    "train": {
+      "pairs": 3000,
+      "positive": 1500,
+      "negative": 1500,
+      "pair_types": {
+        "hard_negative_same_topic": 750,
+        "near_duplicate": 1500,
+        "easy_negative_different_topic": 750
+      },
+      "positive_mutations": {
+        "replace_words": 246,
+        "combined_light": 261,
+        "add_sentence": 255,
+        "case_punctuation": 246,
+        "reorder_sentences": 247,
+        "delete_words": 245
+      }
+    },
+    "validation": {
+      "pairs": 1000,
+      "positive": 500,
+      "negative": 500,
+      "pair_types": {
+        "near_duplicate": 500,
+        "easy_negative_different_topic": 250,
+        "hard_negative_same_topic": 250
+      },
+      "positive_mutations": {
+        "add_sentence": 90,
+        "reorder_sentences": 79,
+        "combined_light": 87,
+        "replace_words": 69,
+        "delete_words": 80,
+        "case_punctuation": 95
+      }
+    },
+    "test": {
+      "pairs": 1000,
+      "positive": 500,
+      "negative": 500,
+      "pair_types": {
+        "near_duplicate": 500,
+        "easy_negative_different_topic": 250,
+        "hard_negative_same_topic": 250
+      },
+      "positive_mutations": {
+        "combined_light": 96,
+        "add_sentence": 91,
+        "delete_words": 81,
+        "case_punctuation": 86,
+        "replace_words": 62,
+        "reorder_sentences": 84
+      }
+    }
+  }
+}
